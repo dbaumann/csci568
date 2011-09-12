@@ -9,12 +9,18 @@ SimpleSpreadsheetManager sm;
 String sUrl = "t6mq_WLV5c5uj6mUNSryBIA";
 String googleUser = GUSER;
 String googlePass = GPASS;
-  
+
+//This is the font object
+PFont label;
+
 void setup() {
   //This code happens once, right when our sketch is launched
   size(800,800);
   background(0);
   smooth();
+  
+  //Create the font object to make text with
+  label = createFont("Helvetica", 24);
 
   //Ask for the list of numbers
   int[] numbers = getNumbers();
@@ -32,7 +38,7 @@ void setup() {
 //  }
 
   //Draw the color grid
-  colorGrid(numbers, 50, 50, 70);
+  numberGrid(numbers, 50, 50, 70);
 }
 
 void draw() {
@@ -92,3 +98,29 @@ void colorGrid(int[] nums, float x, float y, float s) {
  }
  popMatrix();
 }
+
+void numberGrid(int[] nums, float x, float y, float s) {
+ //Make a list of number counts
+ int[] counts = new int[100];
+ //Fill it with zeros
+ for (int i = 0; i < 100; i++) {
+   counts[i] = 0;
+ };
+ //Tally the counts
+ for (int i = 0; i < nums.length; i++) {
+   counts[nums[i]] ++;
+ };
+ 
+ pushMatrix();
+ translate(x,y);
+ //Draw the grid
+ for (int i = 0; i < counts.length; i++) {
+   colorMode(HSB);
+   fill(counts[i] * 30, 255, 255, counts[i] * 30);
+   textAlign(CENTER);
+   textFont(label);
+   textSize(s/2);
+   text(i, (i % 10) * s, floor(i/10) * s);
+ };
+ popMatrix();
+};
