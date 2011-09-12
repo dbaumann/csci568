@@ -11,11 +11,24 @@ String googleUser = GUSER;
 String googlePass = GPASS;
   
 void setup() {
-    //This code happens once, right when our sketch is launched
-    size(500,500);
-    background(0);
-    smooth();
+  //This code happens once, right when our sketch is launched
+  size(500,500);
+  background(0);
+  smooth();
 
+  //Ask for the list of numbers
+  int[] numbers = getNumbers();
+  
+  //transparent dots
+  fill(255,40);
+  noStroke();
+  for (int i = 0; i < numbers.length; i++) {
+    ellipse(numbers[i] * 8, width/2, 8,8);
+  }
+  //A line of random numbers
+  for (int i = 0; i < numbers.length; i++) {
+   ellipse(ceil(random(0,99)) * 8, height/2 + 20, 8,8);
+  };
 }
 
 void draw() {
