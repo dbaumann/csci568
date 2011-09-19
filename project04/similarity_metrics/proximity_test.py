@@ -15,12 +15,11 @@ class TestSimilarityMetrics(unittest.TestCase):
 		self.assertEqual(expected, proximity.euclidean(vector1, vector2))
 
 	def test_smc(self):
-		#should only accept vectors of binary values
 		vector1 = [1, 0, 0, 1, 1]
-		vector2 = [1, 0, 0, 1, -1]
-		self.assertRaises(ValueError, proximity.smc, vector1, vector2)
-		vector2 = [1, 0, 0, 1, 2]
-		self.assertRaises(ValueError, proximity.smc, vector1, vector2)
+
+		#should only accept vectors of binary values
+		self.assertRaises(ValueError, proximity.smc, vector1, [1, 0, 0, 1, -1])
+		self.assertRaises(ValueError, proximity.smc, vector1, [1, 0, 0, 1, 2])
 
 		vector2 = vector1
 		expected = 1
@@ -31,8 +30,32 @@ class TestSimilarityMetrics(unittest.TestCase):
 		self.assertEqual(expected, proximity.smc(vector1, vector2))
 
 		vector2 = [1, 1, 1, 1, 1]
-		expected = 3/5
+		expected = 3/5.0
 		self.assertEqual(expected, proximity.smc(vector1, vector2))
+
+	def test_jaccard(self):
+		vector1 = [1, 0, 0, 1, 1]
+
+		#should only accept vectors of binary values
+		self.assertRaises(ValueError, proximity.jaccard, vector1, [1, 0, 0, 1, -1])
+		self.assertRaises(ValueError, proximity.jaccard, vector1, [1, 0, 0, 1, 2])
+
+		vector2 = vector1
+		expected = 1
+		self.assertEqual(expected, proximity.jaccard(vector1, vector2))
+
+		vector2 = [0, 1, 1, 0, 0]
+		expected = 0
+		self.assertEqual(expected, proximity.jaccard(vector1, vector2))
+
+		vector2 = [1, 1, 1, 1, 1]
+		expected = 3/5.0
+		self.assertEqual(expected, proximity.jaccard(vector1, vector2))
+
+		vector2 = [0, 0, 1, 1, 1]
+		expected = 2/4.0
+		self.assertEqual(expected, proximity.jaccard(vector1, vector2))
+
 	
 
 suite = unittest.TestLoader().loadTestsFromTestCase(TestSimilarityMetrics)

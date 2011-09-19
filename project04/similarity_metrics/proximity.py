@@ -24,11 +24,23 @@ def smc(vector1, vector2):
 	if(max(union) > 1 or min(union) < 0): raise ValueError
 
 	shortest_length = min(len(vector1), len(vector2))
-
 	match0,match1 = 0,0
 
 	for i in range(shortest_length):
 		if(vector1[i]==0 and vector2[i]==0): match0 += 1
 		if(vector1[i]==1 and vector2[i]==1): match1 += 1
 		
-	return (match0 + match1)/shortest_length
+	return float(match0 + match1)/shortest_length
+
+def jaccard(vector1, vector2):
+	union = list(set(vector1) | set(vector2))
+	if(max(union) > 1 or min(union) < 0): raise ValueError
+
+	shortest_length = min(len(vector1), len(vector2))
+	match0,match1 = 0,0
+
+	for i in range(shortest_length):
+		if(vector1[i]==0 and vector2[i]==0): match0 += 1
+		if(vector1[i]==1 and vector2[i]==1): match1 += 1
+		
+	return float(match1)/(shortest_length-match0)
