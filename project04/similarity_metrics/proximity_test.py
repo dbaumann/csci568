@@ -82,6 +82,21 @@ class TestSimilarityMetrics(unittest.TestCase):
 		expected = 0.678844233302
 		self.assertAlmostEqual(expected, proximity.cosine(vector1, vector2))
 
+	def test_tanimoto(self):
+		vector1 = [1, 0, 0, 1, 1]
+
+		vector2 = vector1
+		expected = 1
+		self.assertEqual(expected, proximity.tanimoto(vector1, vector2))
+
+		vector2 = [0, 1, 1, 0, 0]
+		expected = 0
+		self.assertEqual(expected, proximity.tanimoto(vector1, vector2))
+
+		vector2 = [5, 1, 1, 0, 3]
+		expected = 0.258064516129
+		self.assertAlmostEqual(expected, proximity.tanimoto(vector1, vector2))
+
 	def __confirm_binary_restriction(self, function):
 		self.assertRaises(ValueError, function, [1, 0, 0, 1, -1], [1, 0, 0, 1, -1])
 		self.assertRaises(ValueError, function, [1, 0, 0, 1, 2], [1, 0, 0, 1, 2])
