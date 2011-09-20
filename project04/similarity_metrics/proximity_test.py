@@ -15,11 +15,9 @@ class TestSimilarityMetrics(unittest.TestCase):
 		self.assertEqual(expected, proximity.euclidean(vector1, vector2))
 
 	def test_smc(self):
-		vector1 = [1, 0, 0, 1, 1]
+		self.__confirm_binary_restriction(proximity.smc)
 
-		#should only accept vectors of binary values
-		self.assertRaises(ValueError, proximity.smc, vector1, [1, 0, 0, 1, -1])
-		self.assertRaises(ValueError, proximity.smc, vector1, [1, 0, 0, 1, 2])
+		vector1 = [1, 0, 0, 1, 1]
 
 		vector2 = vector1
 		expected = 1
@@ -34,11 +32,9 @@ class TestSimilarityMetrics(unittest.TestCase):
 		self.assertEqual(expected, proximity.smc(vector1, vector2))
 
 	def test_jaccard(self):
+		self.__confirm_binary_restriction(proximity.jaccard)
+		
 		vector1 = [1, 0, 0, 1, 1]
-
-		#should only accept vectors of binary values
-		self.assertRaises(ValueError, proximity.jaccard, vector1, [1, 0, 0, 1, -1])
-		self.assertRaises(ValueError, proximity.jaccard, vector1, [1, 0, 0, 1, 2])
 
 		vector2 = vector1
 		expected = 1
@@ -70,6 +66,26 @@ class TestSimilarityMetrics(unittest.TestCase):
 		vector2 = [5, 9, 11, 2]
 		expected = -.224179415
 		self.assertAlmostEqual(expected, proximity.pearson(vector1, vector2))
+
+	def test_cosine(self):
+		vector1 = [1, 2, 3]
+
+		vector2 = vector1
+		expected = 1
+		self.assertAlmostEqual(expected, proximity.cosine(vector1, vector2))
+
+		vector2 = [-4, 8, -4]
+		expected = 0
+		self.assertAlmostEqual(expected, proximity.cosine(vector1, vector2))
+
+		vector2 = [5, 6, 1]
+		expected = 0.678844233302
+		self.assertAlmostEqual(expected, proximity.cosine(vector1, vector2))
+
+	def __confirm_binary_restriction(self, function):
+		self.assertRaises(ValueError, function, [1, 0, 0, 1, -1], [1, 0, 0, 1, -1])
+		self.assertRaises(ValueError, function, [1, 0, 0, 1, 2], [1, 0, 0, 1, 2])
+
 
 
 	

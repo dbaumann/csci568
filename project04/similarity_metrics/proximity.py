@@ -67,10 +67,19 @@ def pearson(vector1, vector2):
 
 	return numerator/denominator
 
-def __covariance(vector1, vector2):
+def cosine(vector1, vector2):
+	"""Measure of similarity for vectors of numeric values.
+
+	Raises ValueError if one vector is longer than another."""
 
 	if(len(vector1) != len(vector2)): raise ValueError
 
+	numerator = __dot_product(vector1, vector2)
+	denominator = sqrt(__dot_product(vector1, vector1))*sqrt(__dot_product(vector2, vector2))
+
+	return numerator/denominator
+
+def __covariance(vector1, vector2):
 	vector1_avg = float(sum(vector1))/len(vector1)
 	vector2_avg = float(sum(vector2))/len(vector2)
 
@@ -78,3 +87,6 @@ def __covariance(vector1, vector2):
 				for i in range(len(vector1))])
 
 	return cov_sum/(len(vector1) - 1)
+
+def __dot_product(vector1, vector2):
+	return sum([vector1[i]*vector2[i] for i in range(len(vector1))])
