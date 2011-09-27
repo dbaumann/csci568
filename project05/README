@@ -1,3 +1,13 @@
+The kmeans algorithm in clusters.py was adapted from that in "Collective Intelligence" (Segaran, 2007), with a few tweaks that may or may not prove useful beyond the iris data set:
+
+1. Instead of generating prototype centroids randomly, the centroid of the entire data set is used for all k prototypes. The first assigned cluster of each point is randomized to suggest an initially uniform distribution of points to clusters. This choice discourages the presence of empty result clusters, which greatly increase the total SSE.
+
+2. Another issue encountered in the iris data set is that of a centroid being positioned between two closely situated natural clusters. This case cropped up once every 20 runs for k = 3. The chosen solution is to use the clustering with the lowest total SSE over multiple runs.
+
+The optimal solution that is presented by this implementation is very similar to that produced by Weka. There is a 61/50/39 split of the objects among the clusters, and the centroids are almost identically positioned.
+
+---------
+
 This project uses the arff package (http://www.mit.edu/~sav/arff/). You may also need to obtain antlr (http://www.antlr.org/) and setuptools, on which antlr depends.
 
 Installing setuptools:
@@ -13,9 +23,7 @@ wget http://www.antlr.org/download/Python/antlr_python_runtime-3.0.1.tar.gz
 
 tar xvfz antlr_python_runtime-3.0.1.tar.gz
 
-cd antlr_python_runtime-3.0.1
-
-sudo python setup.py install
+sudo python antlr_python_runtime-3.0.1/setup.py install
 
 
 Installing arff:
@@ -24,6 +32,4 @@ wget http://www.mit.edu/~sav/arff/dist/arff-1.0c.tar.gz
 
 tar xvfz arff-1.0c.tar.gz
 
-cd arff-1.0c
-
-sudo python setup.py install
+sudo python arff-1.0c/setup.py install
