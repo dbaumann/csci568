@@ -1,0 +1,29 @@
+This project uses the arff package (http://www.mit.edu/~sav/arff/). You may also need to obtain antlr (http://www.antlr.org/) and setuptools, on which antlr depends.
+
+Installing setuptools:
+
+wget http://pypi.python.org/packages/2.7/s/setuptools/setuptools-0.6c11-py2.7.egg#md5=fe1f997bc722265116870bc7919059ea
+
+sudo sh setuptools-0.6c11-py2.7.egg
+
+
+Installing antlr v3.0.1:
+
+wget http://www.antlr.org/download/Python/antlr_python_runtime-3.0.1.tar.gz
+
+tar xvfz antlr_python_runtime-3.0.1.tar.gz
+
+cd antlr_python_runtime-3.0.1
+
+sudo python setup.py install
+
+
+Installing arff:
+
+wget http://www.mit.edu/~sav/arff/dist/arff-1.0c.tar.gz
+
+tar xvfz arff-1.0c.tar.gz
+
+cd arff-1.0c
+
+sudo python setup.py install

@@ -1,6 +1,6 @@
 import random
 
-import data_sources
+import data
 import distance
 
 import pprint
@@ -8,7 +8,7 @@ pp = pprint.PrettyPrinter(indent=2)
 
 
 
-def kmeans(data, distance=distance.euclidean, k=4):
+def kmeans(data, k=4, distance=distance.euclidean):
 	attributes = range(len(data[0]))
 
 	#determine the range of values for each attribute
@@ -50,15 +50,15 @@ def kmeans(data, distance=distance.euclidean, k=4):
 
 		#recompute the centroid of each cluster
 		for i in range(k):
-			attr_averages = attr_sum = [0.0]*len(attributes)
+			attr_averages = [0.0] * len(attributes)
 
 			if len(clusters[i]) > 0:
 				for object_num in clusters[i]:
 					for attr_num in attributes:
-						attr_sum[attr_num] += data[object_num][attr_num]
+						attr_averages[attr_num] += data[object_num][attr_num]
 				
 				for attr_num in attributes:
-					attr_averages[attr_num] = attr_sum[attr_num]/len(clusters[i])
+					attr_averages[attr_num] /= len(clusters[i])
 				
 				centroids[i] = attr_averages
 	
@@ -67,13 +67,28 @@ def kmeans(data, distance=distance.euclidean, k=4):
 def cluster_sse(data, cluster, centroid, distance=distance.euclidean):
 	return sum([pow(distance(data[object_num], centroid), 2) for object_num in cluster])
 
-iris_data, iris_keys = data_sources.iris()
-
-clusters, centroids = kmeans(iris_data, k=3)
-
-print "result clusters:"
-for i in range(len(clusters)):
-	print "%d {size: %d, sse: %f}" % \
-		(i, len(clusters[i]), cluster_sse(iris_data, clusters[i], centroids[i]))
+iris_data, iris_keys = data.iris()
 
 
+#for euclidean
+for i in range(2, 5):
+	print "kmeans result clusters based on euclidean distance for k = %d:" % i
+
+	clusters, centroids = kmeans(iris_data, distance=distance.euclidean, k=i)
+
+	sse_values = []
+
+	for j in range(i):
+
+		sse_values.append(cluster_sse(iris_data, clusters[j], centroids[j],
+							distance=distance.euclidean)) 
+
+		print "%d {size: %d, sse: %f, centroid:[%s]}" % \
+			(j,
+			len(clusters[j]),
+			sse_values[j],
+			', '.join(['{:.3}'.format(attr_val) for attr_val in centroids[j]]))
+
+	print "total sse: %f" % sum(sse_values)
+
+	print "\n"
