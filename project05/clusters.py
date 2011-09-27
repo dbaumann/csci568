@@ -2,29 +2,19 @@ import random
 
 import data
 import distance
+import prototype
 
 import pprint
 pp = pprint.PrettyPrinter(indent=2)
 
 
 
-def kmeans(data, k=4, distance=distance.euclidean):
+def kmeans(data, k=4, distance=distance.euclidean, prototype=prototype.rand):
 	attributes = range(len(data[0]))
 
-	#determine the range of values for each attribute
-	attribute_ranges = [(min([obj[i] for obj in data]), max([obj[i] for obj in data]))
-				for i in attributes]
+	centroids = prototype(data, k)
 
-	print "attribute_ranges:"
-	print attribute_ranges
-
-	#select k points as initial centroids
-	centroids = [[attribute_ranges[i][0] +
-					(random.random()*(attribute_ranges[i][1]-attribute_ranges[i][0]))
-					for i in attributes]
-				for j in range(k)]
-	
-	print "initial random centroids:"
+	print "initial centroids:"
 	print centroids
 
 	clusters_last = None
@@ -35,7 +25,7 @@ def kmeans(data, k=4, distance=distance.euclidean):
 		#assign each object to the closest centroid
 		for object_num in range(len(data)):
 			obj = data[object_num]
-			assigned_cluster_num = 0
+			assigned_cluster_num = random.choice(range(k))
 
 			for cluster_num in range(k):
 				d = distance(centroids[cluster_num], obj)
@@ -74,7 +64,8 @@ iris_data, iris_keys = data.iris()
 for i in range(2, 5):
 	print "kmeans result clusters based on euclidean distance for k = %d:" % i
 
-	clusters, centroids = kmeans(iris_data, distance=distance.euclidean, k=i)
+	clusters, centroids = kmeans(iris_data, k=i, distance=distance.euclidean,
+							prototype=prototype.avg)
 
 	sse_values = []
 
