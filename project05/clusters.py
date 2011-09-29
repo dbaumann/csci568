@@ -12,6 +12,26 @@ class clustering:
 		self.centroids = centroids
 		self.distance = distance
 
+	def source_data_summary(self):
+		"""
+		Produces a summary in the form min-->max (avg) for each attribute of the source data
+		"""
+		attributes = range(len(self.data[0]))
+
+		attr_ranges = [(min([obj[i] for obj in self.data]), max([obj[i] for obj in self.data]))
+					for i in attributes]
+
+		attr_averages = [sum([obj[i] for obj in self.data])/len(self.data) for i in attributes]
+
+
+		attr_strings = []
+
+		for i in attributes:
+			attr_strings.append("%.3f-->%.3f (%.3f)" % \
+								(attr_ranges[i][0],attr_ranges[i][1], attr_averages[i]))
+
+		return "[%s]" % ', '.join(attr_strings)
+
 	def describe(self):
 		sse_values = []
 
@@ -37,7 +57,7 @@ class clustering:
 	def total_sse(self):
 		return sum([self.cluster_sse(i) for i in range(len(self.clusters))])
 
-
+	
 
 
 def kmeans(data, k=4, distance=distance.euclidean, prototype=prototype.rand):
@@ -83,53 +103,10 @@ def kmeans(data, k=4, distance=distance.euclidean, prototype=prototype.rand):
 	
 	return clusters, centroids
 
-def cluster_sse(data, cluster, centroid, distance=distance.euclidean):
-	return sum([pow(distance(data[object_num], centroid), 2) for object_num in cluster])
-
-def total_sse(data, clusters, centroids, distance=distance.euclidean):
-	return sum([cluster_sse(data, clusters[i], centroids[i], distance)
-					for i in range(len(clusters))])
-
-def summary_stats(data, keys):
-	attributes = range(len(data[0]))
-
-	attr_ranges = [(min([obj[i] for obj in data]), max([obj[i] for obj in data]))
-				for i in attributes]
-
-	attr_averages = [sum([obj[i] for obj in data])/len(data) for i in attributes]
-
-
-	attr_strings = []
-
-	for i in attributes:
-		attr_strings.append("%.3f-->%.3f (%.3f)" % \
-							(attr_ranges[i][0],attr_ranges[i][1], attr_averages[i]))
-
-	return "[%s]" % ', '.join(attr_strings)
-
-
-def print_clustering(data, clusters, centroids, distance=distance.euclidean):
-	sse_values = []
-
-	for j in range(i):
-
-		sse_values.append(cluster_sse(iris_data, clusters[j], centroids[j], distance)) 
-
-		print "%d {size: %d, sse: %f, centroid:[%s]}" % \
-			(j,
-			len(clusters[j]),
-			sse_values[j],
-			', '.join(['{:.5}'.format(attr_val) for attr_val in centroids[j]]))
-
-	total_sse = sum(sse_values)
-
-	print "total sse: %f" % total_sse
-	print "\n"
-
 
 iris_data, iris_keys = data.iris()
 
-stats = summary_stats(iris_data, iris_keys)
+summary_stats = None
 
 #for euclidean
 optimal_clustering = 0
@@ -140,15 +117,19 @@ for t in range(20):
 
 	i = 3
 
-	print "iris statistics:"
-	print stats
-
-	print "kmeans result clusters based on euclidean distance for k = %d (trial %d):" % (i, t)
-
 	clusters, centroids = kmeans(iris_data, k=i, distance=distance.euclidean,
 							prototype=prototype.avg)
 
 	new_clustering = clustering(iris_data, clusters, centroids)
+
+	if summary_stats == None:
+		summary_stats = new_clustering.source_data_summary()
+
+	print "iris statistics:"
+	print summary_stats
+
+	print "kmeans result clusters based on euclidean distance for k = %d (trial %d):" % (i, t)
+
 
 	new_clustering.describe()
 
