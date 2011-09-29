@@ -4,6 +4,42 @@ import data
 import distance
 import prototype
 
+class clustering:
+
+	def __init__(self, data, clusters, centroids, distance=distance.euclidean):
+		self.data = data
+		self.clusters = clusters
+		self.centroids = centroids
+		self.distance = distance
+
+	def describe(self):
+		sse_values = []
+
+		for j in range(i):
+
+			sse_values.append(self.cluster_sse(j)) 
+
+			print "%d {size: %d, sse: %f, centroid:[%s]}" % \
+				(j,
+				len(self.clusters[j]),
+				sse_values[j],
+				', '.join(['{:.5}'.format(attr_val) for attr_val in self.centroids[j]]))
+
+		total_sse = sum(sse_values)
+
+		print "total sse: %f" % total_sse
+		print "\n"
+
+	def cluster_sse(self, index):
+		return sum([pow(self.distance(self.data[object_num], self.centroids[index]), 2)
+						for object_num in self.clusters[index]])
+	
+	def total_sse(self):
+		return sum([self.cluster_sse(i) for i in range(len(self.clusters))])
+
+
+
+
 def kmeans(data, k=4, distance=distance.euclidean, prototype=prototype.rand):
 	attributes = range(len(data[0]))
 
@@ -98,7 +134,7 @@ stats = summary_stats(iris_data, iris_keys)
 #for euclidean
 optimal_clustering = 0
 minimal_sse = 9999
-clusterings = []
+all_clusterings = []
 
 for t in range(20):
 
@@ -112,15 +148,18 @@ for t in range(20):
 	clusters, centroids = kmeans(iris_data, k=i, distance=distance.euclidean,
 							prototype=prototype.avg)
 
-	print_clustering(iris_data, clusters, centroids)
+	new_clustering = clustering(iris_data, clusters, centroids)
 
-	current_sse = total_sse(iris_data, clusters, centroids)
+	new_clustering.describe()
+
+	current_sse = new_clustering.total_sse()
+
 	if(current_sse < minimal_sse):
 		optimal_clustering = t
 		minimal_sse = current_sse
 
-	clusterings.append((clusters, centroids))
+	all_clusterings.append(new_clustering)
 
 
 print "optimal clustering:"
-print_clustering(iris_data, clusterings[optimal_clustering][0], clusterings[optimal_clustering][1])
+all_clusterings[optimal_clustering].describe()
