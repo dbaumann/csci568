@@ -4,7 +4,7 @@ The kmeans algorithm in clusters.py was adapted from that in "Collective Intelli
 
 2. Another issue encountered in the iris data set is that of a centroid being positioned between two closely situated natural clusters. This case cropped up once every 20 runs for k = 3. The chosen solution is to use the clustering with the lowest total SSE over multiple runs.
 
-The optimal solution that is presented by this implementation is very similar to that produced by Weka. There is a 61/50/39 split of the objects among the clusters, and the centroids are almost identically positioned.
+The optimal solution that is presented by this implementation is very similar to that produced by WEKA. There is a 61/50/39 split of the objects among the clusters, and the centroids are almost identically positioned.
 
 ---------
 
