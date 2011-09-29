@@ -57,51 +57,53 @@ class clustering:
 	def total_sse(self):
 		return sum([self.cluster_sse(i) for i in range(len(self.clusters))])
 
-	
+	@staticmethod
+	def kmeans(data, k=4, distance=distance.euclidean, prototype=prototype.rand):
+		"""
+		A static factory method providing a kmeans clustering of the source data.
+		"""
 
+		result_clustering = clustering(data, clusters=[], centroids=prototype(data, k))
 
-def kmeans(data, k=4, distance=distance.euclidean, prototype=prototype.rand):
-	attributes = range(len(data[0]))
+		attributes = range(len(data[0]))
 
-	centroids = prototype(data, k)
+		clusters_last = None
+		for t in range(1, 101):
+			result_clustering.clusters = [[] for i in range(k)]
 
-	clusters_last = None
-	for t in range(1, 101):
-		clusters = [[] for i in range(k)]
+			#assign each object to the closest centroid
+			for object_num in range(len(data)):
+				obj = data[object_num]
+				assigned_cluster_num = random.choice(range(k))
 
-		#assign each object to the closest centroid
-		for object_num in range(len(data)):
-			obj = data[object_num]
-			assigned_cluster_num = random.choice(range(k))
+				for cluster_num in range(k):
+					d = distance(result_clustering.centroids[cluster_num], obj)
+					if d < distance(result_clustering.centroids[assigned_cluster_num], obj):
+						assigned_cluster_num = cluster_num
 
-			for cluster_num in range(k):
-				d = distance(centroids[cluster_num], obj)
-				if d < distance(centroids[assigned_cluster_num], obj):
-					assigned_cluster_num = cluster_num
+				result_clustering.clusters[assigned_cluster_num].append(object_num)
+			
+			#terminate the loop if the centroids list hasn't changed
+			if result_clustering.clusters == clusters_last: break
+			clusters_last = result_clustering.clusters
 
-			clusters[assigned_cluster_num].append(object_num)
-		
-		#terminate the loop if the centroids list hasn't changed
-		if clusters == clusters_last: break
-		clusters_last = clusters
+			#recompute the centroid of each cluster
+			for i in range(k):
+				attr_averages = [0.0] * len(attributes)
 
-		#recompute the centroid of each cluster
-		for i in range(k):
-			attr_averages = [0.0] * len(attributes)
-
-			if len(clusters[i]) > 0:
-				for object_num in clusters[i]:
+				if len(result_clustering.clusters[i]) > 0:
+					for object_num in result_clustering.clusters[i]:
+						for attr_num in attributes:
+							attr_averages[attr_num] += data[object_num][attr_num]
+					
 					for attr_num in attributes:
-						attr_averages[attr_num] += data[object_num][attr_num]
-				
-				for attr_num in attributes:
-					attr_averages[attr_num] /= len(clusters[i])
-				
-				centroids[i] = attr_averages
-	
-	print "kmeans finished after %d iterations" % t
-	
-	return clusters, centroids
+						attr_averages[attr_num] /= len(result_clustering.clusters[i])
+					
+					result_clustering.centroids[i] = attr_averages
+		
+		print "kmeans finished after %d iterations" % t
+		
+		return result_clustering
 
 
 iris_data, iris_keys = data.iris()
@@ -117,10 +119,7 @@ for t in range(20):
 
 	i = 3
 
-	clusters, centroids = kmeans(iris_data, k=i, distance=distance.euclidean,
-							prototype=prototype.avg)
-
-	new_clustering = clustering(iris_data, clusters, centroids)
+	new_clustering = clustering.kmeans(iris_data, k=i, distance=distance.euclidean, prototype=prototype.avg)
 
 	if summary_stats == None:
 		summary_stats = new_clustering.source_data_summary()
