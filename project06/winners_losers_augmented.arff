@@ -1,0 +1,324 @@
+@relation winners_losers
+@attribute person_name string
+@attribute total_vowels numeric
+@attribute total_consonants numeric
+@attribute pos_0 numeric
+@attribute pos_1 numeric
+@attribute pos_2 numeric
+@attribute pos_3 numeric
+@attribute pos_4 numeric
+@attribute pos_5 numeric
+@attribute par_0 {True,False}
+@attribute par_1 {True,False}
+@attribute par_2 {True,False}
+@attribute par_3 {True,False}
+@attribute par_4 {True,False}
+@attribute par_5 {True,False}
+@attribute type_0 {v,c}
+@attribute type_1 {v,c}
+@attribute type_2 {v,c}
+@attribute type_3 {v,c}
+@attribute type_4 {v,c}
+@attribute type_5 {v,c}
+@attribute first_name_length_parity {True,False}
+@attribute last_name_length_parity {True,False}
+@attribute class {+,-}
+@data
+'Ed Pednault',4,7,4,3,-65,15,4,3,True,False,False,False,True,False,v,c,c,c,v,c,True,True,-
+'Neela Khan',4,6,13,4,4,11,0,-65,False,True,True,False,True,False,c,v,v,c,v,c,False,True,+
+'Bir Bhanu',3,6,1,8,17,-65,1,7,False,True,False,False,False,False,c,v,c,c,c,c,False,False,+
+'Arlindo Oliveira',8,8,0,17,11,8,13,3,True,False,False,True,False,False,v,c,c,v,c,c,False,True,-
+'Irina Tchoumatchenko',8,12,8,17,8,13,0,-65,True,False,True,False,True,False,v,c,v,c,v,c,False,True,-
+'Robert C. Holte',4,11,17,14,1,4,17,19,False,True,False,True,False,False,c,v,c,v,c,c,True,False,+
+'Michele Sebag',5,8,12,8,2,7,4,11,True,True,True,False,True,False,c,v,c,c,v,c,False,False,+
+'Jorg-Uwe Kietz',5,9,9,14,17,6,-52,20,False,True,False,True,True,True,c,v,c,c,c,v,True,False,+
+'Yoshifumi Sakai',7,8,24,14,18,7,8,5,True,True,True,False,True,False,c,v,c,c,v,c,False,False,+
+'Thomas E. Kammeyer',6,12,19,7,14,12,0,18,False,False,True,True,True,True,c,c,v,c,v,c,True,True,-
+'Yoav Freund',4,7,24,14,0,21,-65,5,True,True,True,False,False,False,c,v,v,c,c,c,True,True,+
+'R. Andrew McCallum',4,14,17,-51,-65,0,13,3,False,False,False,True,False,False,c,c,c,v,c,c,True,True,-
+'Jonathan Gratch',4,11,9,14,13,0,19,7,False,True,False,True,False,False,c,v,c,v,c,c,True,True,+
+'Margo Guertin',5,8,12,0,17,6,14,-65,True,True,False,True,True,False,c,v,c,c,v,c,False,False,+
+'Huw Roberts',3,8,7,20,22,-65,17,14,False,True,True,False,False,True,c,v,c,c,c,v,False,False,+
+'Sally Goldman',3,10,18,0,11,11,24,-65,True,True,False,False,True,False,c,v,c,c,c,c,False,False,+
+'Bhaskar Dasgupta',5,11,1,7,0,18,10,0,False,False,True,True,True,True,c,c,v,c,c,v,False,True,-
+'Fernando Pereira',7,9,5,4,17,13,0,13,False,True,False,False,True,False,c,v,c,c,v,c,True,False,+
+'Nina Mishra',4,7,13,8,13,0,-65,12,False,True,False,True,False,True,c,v,c,v,c,c,True,True,+
+'Wray Buntine',4,8,22,17,0,24,-65,1,True,False,True,True,False,False,c,c,v,c,c,c,True,False,-
+'William A. Greene',7,10,22,8,11,11,8,0,True,True,False,False,True,True,c,v,c,c,v,v,False,True,+
+'Yolanda Gil',4,7,24,14,11,0,13,3,True,True,False,True,False,False,c,v,c,v,c,c,False,False,+
+'Chris Drummond',3,11,2,7,17,8,18,-65,True,False,False,True,True,False,c,c,c,v,c,c,False,True,-
+'Claude Sammut',5,8,2,11,0,20,3,4,True,False,True,True,False,True,c,c,v,v,c,v,True,True,-
+'Charles X. Ling',3,12,2,7,0,17,11,4,True,False,True,False,False,True,c,c,v,c,c,v,False,True,-
+'Sanjay Jain',4,7,18,0,13,9,0,24,True,True,False,False,True,True,c,v,c,c,v,c,True,True,+
+'Stefan Kramer',4,9,18,19,4,5,0,13,True,False,True,False,True,False,c,c,v,c,v,c,True,True,-
+'Cristina Baroglio',7,10,2,17,8,18,19,8,True,False,True,True,False,True,c,c,v,c,c,v,True,True,-
+'Dwight Schrute',3,11,3,22,8,6,7,19,False,True,True,True,False,False,c,c,v,c,c,c,True,False,+
+'Leslie Pack Kaelbling',7,14,11,4,18,11,8,4,False,True,True,False,True,True,c,v,c,c,v,v,True,False,+
+'Philip Chan',3,8,15,7,8,11,8,15,False,False,True,False,True,False,c,c,v,c,v,c,True,True,-
+'Yishay Mansour',5,9,24,8,18,7,0,24,True,True,True,False,True,True,c,v,c,c,v,c,True,False,+
+'Michael I. Jordan',6,11,12,8,2,7,0,4,True,True,True,False,True,True,c,v,c,c,v,v,False,True,+
+'Patrick M. Murphy',3,14,15,0,19,17,8,2,False,True,False,False,True,True,c,v,c,c,v,c,False,True,+
+'Karsten Verbeurgt',5,12,10,0,17,18,19,4,True,True,False,True,False,True,c,v,c,c,c,v,False,False,+
+'Attilio Giordana',8,8,0,19,19,8,11,8,True,False,False,True,False,True,v,c,c,v,c,v,False,True,-
+'Gerald F. DeJong',4,12,6,4,17,0,11,3,True,True,False,True,False,False,c,v,c,v,c,c,True,True,+
+'Thomas Zeugmann',5,10,19,7,14,12,0,18,False,False,True,True,True,True,c,c,v,c,v,c,True,True,-
+'Mandayam T. Suraj',5,12,12,0,13,3,0,24,True,True,False,False,True,True,c,v,c,c,v,c,True,False,+
+'Michael Littman',5,10,12,8,2,7,0,4,True,True,True,False,True,True,c,v,c,c,v,v,False,False,+
+'Shaul Markovitch',5,11,18,7,0,20,11,-65,True,False,True,True,False,False,c,c,v,v,c,c,False,True,-
+'Eric Allender',5,8,4,17,8,2,-65,0,True,False,True,True,False,True,v,c,v,c,c,v,True,True,-
+'Cullen Schaffer',4,11,2,20,11,11,4,13,True,True,False,False,True,False,c,v,c,c,v,c,True,True,+
+'Roberto Piola',6,7,17,14,1,4,17,19,False,True,False,True,False,False,c,v,c,v,c,c,False,False,+
+'Nader Bshouty',4,9,13,0,3,4,17,-65,False,True,False,True,False,False,c,v,c,v,c,c,False,False,+
+'Bruce A. MacDonald',6,12,1,17,20,2,4,-65,False,False,True,True,True,False,c,c,v,c,v,c,False,False,-
+'Kamal M. Ali',4,8,10,0,12,0,11,-65,True,True,True,True,False,False,c,v,c,v,c,c,False,False,+
+'Foster J. Provost',4,13,5,14,18,19,4,17,False,True,True,False,True,False,c,v,c,c,v,c,True,False,+
+'Wolfgang Janko',4,10,22,14,11,5,6,0,True,True,False,False,True,True,c,v,c,c,c,v,True,False,+
+'Seth Flanders',3,10,18,4,19,7,-65,5,True,True,False,False,False,False,c,v,c,c,c,c,True,True,+
+'Peter Bartlett',4,10,15,4,19,4,17,-65,False,True,False,True,False,False,c,v,c,v,c,c,False,True,+
+'Craig Knoblock',4,10,2,17,0,8,6,-65,True,False,True,True,True,False,c,c,v,v,c,c,False,True,-
+'Earl S. Harris Jr.',4,14,4,0,17,11,-65,18,True,True,False,False,False,True,v,v,c,c,c,c,True,False,+
+'Prasad Tadepalli',6,10,15,17,0,18,0,3,False,False,True,True,True,False,c,c,v,c,v,c,True,False,-
+'Stan Matwin',3,8,18,19,0,13,-65,12,True,False,True,False,False,True,c,c,v,c,c,c,True,True,-
+'Pascal Koiran',5,8,15,0,18,2,0,11,False,True,True,True,True,False,c,v,c,c,v,c,True,True,+
+'Sandra Panizza',5,9,18,0,13,3,17,0,True,True,False,False,False,True,c,v,c,c,c,v,True,False,+
+'George Berg',4,7,6,4,14,17,6,4,True,True,True,False,True,True,c,v,v,c,c,v,True,True,+
+'Stephen Kwek',3,9,18,19,4,15,7,4,True,False,True,False,False,True,c,c,v,c,c,v,False,True,-
+'J. R. Quinlan',3,10,9,-51,-65,17,-51,-65,False,False,False,False,False,False,c,c,c,c,c,c,True,False,-
+'Sebastian Seung',6,9,18,4,1,0,18,19,True,True,False,True,True,False,c,v,c,v,c,c,False,False,+
+'Susan L. Epstein',5,11,18,20,18,0,13,-65,True,True,True,True,False,False,c,v,c,v,c,c,False,False,+
+'Priscilla Rasmussen',6,13,15,17,8,18,2,8,False,False,True,True,True,True,c,c,v,c,c,v,False,False,-
+'Steven Minton',4,9,18,19,4,21,4,13,True,False,True,False,True,False,c,c,v,c,v,c,True,True,-
+'Lance Riley',4,7,11,0,13,2,4,-65,False,True,False,True,True,False,c,v,c,c,v,c,False,False,+
+'Jose L. Balcazar',5,11,9,14,18,4,-65,11,False,True,True,True,False,False,c,v,c,v,c,c,True,True,+
+'William Sakas',5,8,22,8,11,11,8,0,True,True,False,False,True,True,c,v,c,c,v,v,False,False,+
+'Claudio Facchinetti',8,11,2,11,0,20,3,8,True,False,True,True,False,True,c,c,v,v,c,v,False,False,-
+'Vijay Raghavan',5,9,21,8,9,0,24,-65,False,True,False,True,True,False,c,v,c,v,c,c,False,True,+
+'Bob Evans',3,6,1,14,1,-65,4,21,False,True,False,False,True,False,c,v,c,c,v,c,False,False,+
+'Neil Berkman',4,8,13,4,8,11,-65,1,False,True,True,False,False,False,c,v,v,c,c,c,True,False,+
+'Masayuki Inaba',7,7,12,0,18,0,24,20,True,True,True,True,True,True,c,v,c,v,c,v,True,False,+
+'Shai Ben-David',5,9,18,7,0,8,-65,1,True,False,True,True,False,False,c,c,v,v,c,c,True,False,-
+'Dan Roth',2,6,3,0,13,-65,17,14,False,True,False,False,False,True,c,v,c,c,c,v,False,True,+
+'Lisa Hellerstein',6,10,11,8,18,0,-65,7,False,True,True,True,False,False,c,v,c,v,c,c,True,False,+
+'Geoffrey Gordon',5,10,6,4,14,5,5,17,True,True,True,False,False,False,c,v,v,c,c,c,True,True,+
+'Paul Vitanyi',5,7,15,0,20,11,-65,21,False,True,True,False,False,False,c,v,v,c,c,c,True,False,+
+'Anselm Blumer',4,9,0,13,18,4,11,12,True,False,True,True,False,True,v,c,c,v,c,c,True,True,-
+'Jeff Jackson',3,9,9,4,5,5,-65,9,False,True,False,False,False,False,c,v,c,c,c,c,True,False,+
+'Steven W. Norton',4,12,18,19,4,21,4,13,True,False,True,False,True,False,c,c,v,c,v,c,True,True,-
+'R. Bharat Rao',4,9,17,-51,-65,1,7,0,False,False,False,False,False,True,c,c,c,c,c,v,True,False,-
+'Matthias Heger',5,9,12,0,19,19,7,8,True,True,False,False,False,True,c,v,c,c,c,v,True,False,+
+'Nicolo Cesa-Bianchi',8,11,13,8,2,14,11,14,False,True,True,True,False,True,c,v,c,v,c,v,True,True,+
+'David Montgomery',5,11,3,0,21,8,3,-65,False,True,False,True,False,False,c,v,c,v,c,c,False,True,+
+'Patricia J. Riddle',6,12,15,0,19,17,8,2,False,True,False,False,True,True,c,v,c,c,v,c,True,True,+
+'J. Jeffrey Mahoney',5,13,9,-51,-65,9,4,5,False,False,False,False,True,False,c,c,c,c,v,c,True,False,-
+'Kazushi Ikeda',6,7,10,0,25,20,18,7,True,True,False,True,True,False,c,v,c,v,c,c,False,False,+
+'Thomas G. Dietterich',6,14,19,7,14,12,0,18,False,False,True,True,True,True,c,c,v,c,v,c,True,True,-
+'Pang-Chieh Chen',4,11,15,0,13,6,-52,2,False,True,False,True,True,True,c,v,c,c,c,c,True,True,+
+'Paul Utgoff',4,7,15,0,20,11,-65,20,False,True,True,False,False,True,c,v,v,c,c,v,True,True,+
+'Joseph OSullivan',6,10,9,14,18,4,15,7,False,True,True,True,False,False,c,v,c,v,c,c,True,False,+
+'Toshiyasu Matsushima',8,12,19,14,18,7,8,24,False,True,True,False,True,True,c,v,c,c,v,c,False,True,+
+'Timothy P. Barber',4,13,19,8,12,14,19,7,False,True,True,True,False,False,c,v,c,v,c,c,False,True,+
+'Phil Long',2,7,15,7,8,11,-65,11,False,False,True,False,False,False,c,c,v,c,c,c,True,True,-
+'Tal Grossman',3,9,19,0,11,-65,6,17,False,True,False,False,True,False,c,v,c,c,c,c,False,True,+
+'Donna Slonim',4,8,3,14,13,13,0,-65,False,True,False,False,True,False,c,v,c,c,v,c,False,True,+
+'Tatsuo Unemi',6,6,19,0,19,18,20,14,False,True,False,True,True,True,c,v,c,c,v,v,True,False,+
+'Krishnan Pillaipakkamnatt',8,17,10,17,8,18,7,13,True,False,True,True,False,False,c,c,v,c,c,c,True,True,-
+'Lorenza Saitta',6,8,11,14,17,4,13,25,False,True,False,True,False,False,c,v,c,v,c,c,False,True,+
+'Usama Fayyad',5,7,20,18,0,12,0,-65,True,True,True,True,True,False,v,c,v,c,v,c,False,True,-
+'Jude Shavlik',4,8,9,20,3,4,-65,18,False,True,False,True,False,True,c,v,c,v,c,c,True,False,+
+'David Helmbold',4,10,3,0,21,8,3,-65,False,True,False,True,False,False,c,v,c,v,c,c,False,True,+
+'Grigoris Karakoulas',8,11,6,17,8,6,14,17,True,False,True,True,True,False,c,c,v,c,v,c,True,True,-
+'Tom Hancock',3,8,19,14,12,-65,7,0,False,True,True,False,False,True,c,v,c,c,c,v,False,False,+
+'Drago Indjic',4,8,3,17,0,6,14,-65,False,False,True,True,True,False,c,c,v,c,v,c,False,True,-
+'Gary Weiss',3,7,6,0,17,24,-65,22,True,True,False,True,False,True,c,v,c,c,c,c,True,False,+
+'Frank Stephan',3,10,5,17,0,13,10,-65,False,False,True,False,True,False,c,c,v,c,c,c,False,False,-
+'Kenji Yamanishi',6,9,10,4,13,9,8,-65,True,True,False,False,True,False,c,v,c,c,v,c,False,False,+
+'Wan P. Chiang',3,10,22,0,13,-65,15,-51,True,True,False,False,False,False,c,v,c,c,c,c,False,True,+
+'Yoram Singer',4,8,24,14,17,0,12,-65,True,True,False,True,True,False,c,v,c,v,c,c,False,True,+
+'Melinda T. Gervasio',7,12,12,4,11,8,13,3,True,True,False,True,False,False,c,v,c,v,c,c,False,True,+
+'Kate Goelz',4,6,10,0,19,4,-65,6,True,True,False,True,False,True,c,v,c,v,c,c,True,False,+
+'Roni Khardon',4,8,17,14,13,8,-65,10,False,True,False,True,False,True,c,v,c,v,c,c,True,False,+
+'Nikolay Nikolaev',7,9,13,8,10,14,11,0,False,True,True,True,False,True,c,v,c,v,c,v,False,True,+
+'George H. John',4,10,6,4,14,17,6,4,True,True,True,False,True,True,c,v,v,c,c,v,True,True,+
+'Diana Gordon',5,7,3,8,0,13,0,-65,False,True,True,False,True,False,c,v,v,c,v,c,False,True,+
+'Claire Cardie',6,7,2,11,0,8,17,4,True,False,True,True,False,True,c,c,v,v,c,v,True,True,-
+'Moshe Koppel',4,8,12,14,18,7,4,-65,True,True,True,False,True,False,c,v,c,c,v,c,False,True,+
+'Andy Bernard',3,9,0,13,3,24,-65,1,True,False,False,True,False,False,v,c,c,c,c,c,True,False,+
+'Marcos Salganicoff',6,12,12,0,17,2,14,18,True,True,False,True,True,True,c,v,c,c,v,c,True,False,+
+'David W. Opitz',4,10,3,0,21,8,3,-65,False,True,False,True,False,False,c,v,c,v,c,c,False,False,+
+'Mark Changizi',4,9,12,0,17,10,-65,2,True,True,False,True,False,True,c,v,c,c,c,c,True,True,+
+'Lars Asker',3,7,11,0,17,18,-65,0,False,True,False,True,False,True,c,v,c,c,c,v,True,False,+
+'Dana Ron',3,5,3,0,13,0,-65,17,False,True,False,True,False,False,c,v,c,v,c,c,True,False,+
+'Andrey Burago',5,8,0,13,3,17,4,24,True,False,False,False,True,True,v,c,c,c,v,c,True,True,-
+'Eddy Mayoraz',4,8,4,3,3,24,-65,12,True,False,False,True,False,True,v,c,c,c,c,c,True,False,-
+'Mark Schwabacher',4,12,12,0,17,10,-65,18,True,True,False,True,False,True,c,v,c,c,c,c,True,False,+
+'Carl H. Smith',2,11,2,0,17,11,-65,7,True,True,False,False,False,False,c,v,c,c,c,c,True,False,+
+'Wee Sun Lee',5,6,22,4,4,-65,18,20,True,True,True,False,True,True,c,v,v,c,c,v,False,False,+
+'Mario Marchand',5,9,12,0,17,8,14,-65,True,True,False,True,True,False,c,v,c,v,v,c,False,True,+
+'David Pierce',5,7,3,0,21,8,3,-65,False,True,False,True,False,False,c,v,c,v,c,c,False,True,+
+'Dan Oblinger',4,8,3,0,13,-65,14,1,False,True,False,False,True,False,c,v,c,c,v,c,False,True,+
+'Lyle H. Ungar',3,10,11,24,11,4,-65,7,False,True,False,True,False,False,c,c,c,v,c,c,True,False,-
+'Hiroshi Tanaka',6,8,7,8,17,14,18,7,False,True,False,True,True,False,c,v,c,v,c,c,False,True,+
+'Johanne Morin',5,8,9,14,7,0,13,13,False,True,False,True,False,False,c,v,c,v,c,c,False,False,+
+'Thomas Wengerek',5,10,19,7,14,12,0,18,False,False,True,True,True,True,c,c,v,c,v,c,True,True,-
+'Mark W. Craven',3,11,12,0,17,10,-65,22,True,True,False,True,False,True,c,v,c,c,c,c,True,True,+
+'Tom Fawcett',3,8,19,14,12,-65,5,0,False,True,True,False,False,True,c,v,c,c,c,v,False,False,+
+'John R. Rose',3,9,9,14,7,13,-65,17,False,True,False,False,False,False,c,v,c,c,c,c,True,True,+
+'Richard A. Caruana',7,11,17,8,2,7,0,17,False,True,True,False,True,False,c,v,c,c,v,c,False,False,+
+'Steven Salzberg',4,11,18,19,4,21,4,13,True,False,True,False,True,False,c,c,v,c,v,c,True,True,-
+'Barak A. Pearlmutter',7,13,1,0,17,0,10,-65,False,True,False,True,True,False,c,v,c,v,c,c,False,False,+
+'Chris Darken',3,9,2,7,17,8,18,-65,True,False,False,True,True,False,c,c,c,v,c,c,False,True,-
+'Judy A. Franklin',4,12,9,20,3,24,-65,0,False,True,False,True,False,True,c,v,c,c,c,v,True,True,+
+'Xuemei Wang',5,6,23,20,4,12,4,8,False,True,True,True,True,True,c,v,v,c,v,v,True,True,+
+'Nitin Indurkhya',5,10,13,8,19,8,13,-65,False,True,False,True,False,False,c,v,c,v,c,c,False,False,+
+'Oded Maron',4,6,14,3,4,3,-65,12,True,False,True,False,False,True,v,c,v,c,c,c,True,False,-
+'Takefumi Yamazaki',8,9,19,0,10,4,5,20,False,True,True,True,False,True,c,v,c,v,c,v,True,True,+
+'Satinder Pal Singh',5,13,18,0,19,8,13,3,True,True,False,True,False,False,c,v,c,v,c,c,True,False,+
+'Ron Kohavi',4,6,17,14,13,-65,10,14,False,True,False,False,True,True,c,v,c,c,c,v,False,True,+
+'Michael de la Maza',7,11,12,8,2,7,0,4,True,True,True,False,True,True,c,v,c,c,v,v,False,True,+
+'Robert Sloan',4,8,17,14,1,4,17,19,False,True,False,True,False,False,c,v,c,v,c,c,True,False,+
+'Chun-Nan Hsu',3,9,2,7,20,13,-52,13,True,False,True,False,True,False,c,c,v,c,c,c,True,False,-
+'Daniel Kortenkamp',6,11,3,0,13,8,4,11,False,True,False,True,True,False,c,v,c,v,v,c,True,True,+
+'Ricard Gavalda',5,9,17,8,2,0,17,3,False,True,True,True,False,False,c,v,c,v,c,c,True,False,+
+'Joe Suzuki',5,5,9,14,4,-65,18,20,False,True,True,False,True,True,c,v,v,c,c,v,False,True,+
+'James S. Royer',4,10,9,0,12,4,18,-65,False,True,True,True,True,False,c,v,c,v,c,c,False,False,+
+'Jyrki Kivinen',4,9,9,24,17,10,8,-65,False,True,False,True,True,False,c,c,c,c,v,c,False,False,-
+'Tapio Elomaa',7,5,19,0,15,8,14,-65,False,True,False,True,True,False,c,v,c,v,v,c,False,True,+
+'Michael Redmond',5,10,12,8,2,7,0,4,True,True,True,False,True,True,c,v,c,c,v,v,False,False,+
+'Rich Maclin',3,8,17,8,2,7,-65,12,False,True,True,False,False,True,c,v,c,c,c,c,True,True,+
+'Jiarong Hong',4,8,9,8,0,17,14,13,False,True,True,False,True,False,c,v,v,c,v,c,False,True,+
+'Janusz Wnek',3,8,9,0,13,20,18,25,False,True,False,True,True,False,c,v,c,v,c,c,True,True,+
+'David B. Skalak',4,11,3,0,21,8,3,-65,False,True,False,True,False,False,c,v,c,v,c,c,False,True,+
+'Daniel Hennessy',5,10,3,0,13,8,4,11,False,True,False,True,True,False,c,v,c,v,v,c,True,True,+
+'David Cohn',3,7,3,0,21,8,3,-65,False,True,False,True,False,False,c,v,c,v,c,c,False,True,+
+'Merrick L. Furst',3,13,12,4,17,17,8,2,True,True,False,False,True,True,c,v,c,c,v,c,False,False,+
+'Lindley Darden',4,10,11,8,13,3,11,4,False,True,False,False,False,True,c,v,c,c,c,v,False,True,+
+'Steve A. Chien',5,9,18,19,4,21,4,-65,True,False,True,False,True,False,c,c,v,c,v,c,False,False,-
+'Wai Lam',3,4,22,0,8,-65,11,0,True,True,True,False,False,True,c,v,v,c,c,v,False,False,+
+'Paul W. Goldberg',4,12,15,0,20,11,-65,22,False,True,True,False,False,True,c,v,v,c,c,c,True,True,+
+'Stephen Muggleton',5,12,18,19,4,15,7,4,True,False,True,False,False,True,c,c,v,c,c,v,False,False,-
+'Jason Catlett',4,9,9,0,18,14,13,-65,False,True,True,True,False,False,c,v,c,v,c,c,False,False,+
+'Justinian Rosca',6,9,9,20,18,19,8,13,False,True,True,False,True,False,c,v,c,c,v,c,False,False,+
+'Sreerama K. Murthy',5,13,18,17,4,4,17,0,True,False,True,True,False,True,c,c,v,v,c,v,True,True,-
+'Richard S. Sutton',4,13,17,8,2,7,0,17,False,True,True,False,True,False,c,v,c,c,v,c,False,True,+
+'Michael W. Barley',5,12,12,8,2,7,0,4,True,True,True,False,True,True,c,v,c,c,v,v,False,True,+
+'Leslie Grate',5,7,11,4,18,11,8,4,False,True,True,False,True,True,c,v,c,c,v,v,True,False,+
+'Nathalie Japkowicz',7,11,13,0,19,7,0,11,False,True,False,False,True,False,c,v,c,c,v,c,True,False,+
+'Randolph Jones',4,10,17,0,13,3,14,11,False,True,False,False,True,False,c,v,c,c,v,c,True,False,+
+'John Rachlin',3,9,9,14,7,13,-65,17,False,True,False,False,False,False,c,v,c,c,c,c,True,False,+
+'Moshe Leshno',4,8,12,14,18,7,4,-65,True,True,True,False,True,False,c,v,c,c,v,c,False,True,+
+'Emanuel Knill',5,8,4,12,0,13,20,4,True,True,True,False,True,True,v,c,v,c,v,v,False,False,-
+'Sholom Weiss',4,8,18,7,14,11,14,12,True,False,True,False,True,True,c,c,v,c,v,c,True,False,-
+'Darko Zupanic',5,8,3,0,17,10,14,-65,False,True,False,True,True,False,c,v,c,c,v,c,False,False,+
+'Thomas G. Spalthoff',4,15,19,7,14,12,0,18,False,False,True,True,True,True,c,c,v,c,v,c,True,False,-
+'Michael Kearns',5,9,12,8,2,7,0,4,True,True,True,False,True,True,c,v,c,c,v,v,False,True,+
+'Holly Yanco',3,8,7,14,11,11,24,-65,False,True,False,False,True,False,c,v,c,c,c,c,False,False,+
+'Olivier De Vel',6,8,14,11,8,21,8,4,True,False,True,False,True,True,v,c,v,c,v,v,False,False,-
+'Tom Bylander',3,9,19,14,12,-65,1,24,False,True,True,False,False,True,c,v,c,c,c,c,False,True,+
+'Johannes Furnkranz',5,13,9,14,7,0,13,13,False,True,False,True,False,False,c,v,c,v,c,c,True,False,+
+'Pat Langley',3,8,15,0,19,-65,11,0,False,True,False,False,False,True,c,v,c,c,c,v,False,False,+
+'Javed Aslam',4,7,9,0,21,4,3,-65,False,True,False,True,False,False,c,v,c,v,c,c,False,False,+
+'Jean Gabriel Ganascia',9,12,9,4,0,13,-65,6,False,True,True,False,False,True,c,v,v,c,c,c,True,True,+
+'Sean Slattery',4,9,18,4,0,13,-65,18,True,True,True,False,False,True,c,v,v,c,c,c,True,True,+
+'Michael A. meystel',6,12,12,8,2,7,0,4,True,True,True,False,True,True,c,v,c,c,v,v,False,False,+
+'Brian D. Davidson',5,12,1,17,8,0,13,-65,False,False,True,True,False,False,c,c,v,v,c,c,False,True,-
+'David Gillman',4,9,3,0,21,8,3,-65,False,True,False,True,False,False,c,v,c,v,c,c,False,False,+
+'Matevz Kovacic',5,9,12,0,19,4,21,25,True,True,False,True,False,False,c,v,c,v,c,c,True,False,+
+'Bala Kalyanasundaram',8,12,1,0,11,0,-65,10,False,True,False,True,False,True,c,v,c,v,c,c,True,False,+
+'Martin Kummer',4,9,12,0,17,19,8,13,True,True,False,False,True,False,c,v,c,c,v,c,True,True,+
+'Manfred Warmuth',4,11,12,0,13,5,17,4,True,True,False,False,False,True,c,v,c,c,c,v,False,False,+
+'David Mathias',5,8,3,0,21,8,3,-65,False,True,False,True,False,False,c,v,c,v,c,c,False,False,+
+'Brian Tester',4,8,1,17,8,0,13,-65,False,False,True,True,False,False,c,c,v,v,c,c,False,True,-
+'Nicolas Fiechter',6,10,13,8,2,14,11,0,False,True,True,True,False,True,c,v,c,v,c,v,False,True,+
+'Aurora Perez',6,6,0,20,17,14,17,0,True,True,False,True,False,True,v,v,c,v,c,v,True,False,+
+'Michael Scott',4,9,12,8,2,7,0,4,True,True,True,False,True,True,c,v,c,c,v,v,False,False,-
+'Naoki Abe',5,4,13,0,14,10,8,-65,False,True,True,True,True,False,c,v,v,c,v,c,False,False,+
+'Kimmen Sjolander',5,11,10,8,12,12,4,13,True,True,True,True,True,False,c,v,c,c,v,c,True,False,+
+'Jeffery Clouse',5,9,9,4,5,5,4,17,False,True,False,False,True,False,c,v,c,c,v,c,False,True,+
+'Robert P. Daley',4,11,17,14,1,4,17,19,False,True,False,True,False,False,c,v,c,v,c,c,True,False,+
+'William Gasarch',5,10,22,8,11,11,8,0,True,True,False,False,True,True,c,v,c,c,v,v,False,False,+
+'Reinhard Blasig',5,10,17,4,8,13,7,0,False,True,True,False,False,True,c,v,v,c,c,v,True,True,+
+'Malini Bhandaru',6,9,12,0,11,8,13,8,True,True,False,True,False,True,c,v,c,v,c,v,True,True,+
+'Robert Schapire',5,10,17,14,1,4,17,19,False,True,False,True,False,False,c,v,c,v,c,c,True,True,+
+'Gary M. Selzer',3,11,6,0,17,24,-65,12,True,True,False,True,False,True,c,v,c,c,c,c,True,True,+
+'Clare Bates Congdon',6,13,2,11,0,17,4,-65,True,False,True,False,True,False,c,c,v,c,v,c,False,False,-
+'Martinch Krikis',4,11,12,0,17,19,8,13,True,True,False,False,True,False,c,v,c,c,v,c,True,True,+
+'John Case',3,6,9,14,7,13,-65,2,False,True,False,False,False,True,c,v,c,c,c,c,True,True,+
+'Lance Fortnow',4,9,11,0,13,2,4,-65,False,True,False,True,True,False,c,v,c,c,v,c,False,False,+
+'Lorien Y. Pratt',4,11,11,14,17,8,4,13,False,True,False,True,True,False,c,v,c,v,v,c,True,False,+
+'Klaus P. Jantke',4,11,10,11,0,20,18,-65,True,False,True,True,True,False,c,c,v,v,c,c,False,True,-
+'Haralabos Athanassiou',10,11,7,0,17,0,11,0,False,True,False,True,False,True,c,v,c,v,c,v,False,False,+
+'Bradley L. Whitehall',5,15,1,17,0,3,11,4,False,False,True,False,False,True,c,c,v,c,c,v,False,False,-
+'Sridhar Mahadevan',6,11,18,17,8,3,7,0,True,False,True,False,False,True,c,c,v,c,c,v,False,False,-
+'Craig Nevill-Manning',6,14,2,17,0,8,6,-65,True,False,True,True,True,False,c,c,v,v,c,c,False,True,-
+'Paul Fischer',4,8,15,0,20,11,-65,5,False,True,True,False,False,False,c,v,v,c,c,c,True,False,+
+'Hal Duncan',3,7,7,0,11,-65,3,20,False,True,False,False,False,True,c,v,c,c,c,v,False,True,+
+'Von-Wun Soo',4,7,21,14,13,-52,22,20,False,True,False,True,True,True,c,v,c,c,c,v,False,False,+
+'Bill Byrne',2,8,1,8,11,11,-65,1,False,True,False,False,False,False,c,v,c,c,c,c,True,False,+
+'Myriam Abramson',5,10,12,24,17,8,0,12,True,True,False,True,True,True,c,c,c,v,v,c,True,True,-
+'Creed Bratton',4,9,2,17,4,4,3,-65,True,False,True,True,False,False,c,c,v,v,c,c,False,False,+
+'Minoru Asada',6,6,12,8,13,14,17,20,True,True,False,True,False,True,c,v,c,v,c,v,True,False,+
+'Tom M. Mitchell',3,12,19,14,12,-65,12,-51,False,True,True,False,True,False,c,v,c,c,c,c,False,True,+
+'Jean-Daniel Zucker',7,11,9,4,0,13,-52,3,False,True,True,False,True,False,c,v,v,c,c,c,False,True,+
+'Sonya Snedecor',5,9,18,14,13,24,0,-65,True,True,False,True,True,False,c,v,c,c,v,c,False,True,+
+'Glenn Silverstein',5,12,6,11,4,13,13,-65,True,False,True,False,False,False,c,c,v,c,c,c,False,False,-
+'Avrim Blum',3,7,0,21,17,8,12,-65,True,False,False,True,True,False,v,c,c,v,c,c,False,True,-
+'Scott E. Decatur',5,11,18,2,14,19,19,-65,True,True,True,False,False,False,c,c,v,c,c,c,False,False,-
+'Dana Angluin',5,7,3,0,13,0,-65,0,False,True,False,True,False,True,c,v,c,v,c,v,True,False,+
+'Wolfgang Maass',4,10,22,14,11,5,6,0,True,True,False,False,True,True,c,v,c,c,c,v,True,False,+
+'Chidanand Apte',5,9,2,7,8,3,0,13,True,False,True,False,True,False,c,c,v,c,v,c,False,True,-
+'Marko Grobelnik',5,10,12,0,17,10,14,-65,True,True,False,True,True,False,c,v,c,c,v,c,False,False,+
+'Mary Soon Lee',5,8,12,0,17,24,-65,18,True,True,False,True,False,True,c,v,c,c,c,c,True,False,+
+'Zhixiang Chen',4,9,25,7,8,23,8,0,False,False,True,False,True,True,c,c,v,c,v,v,True,True,-
+'Mona Singh',3,7,12,14,13,0,-65,18,True,True,False,True,False,True,c,v,c,v,c,c,True,False,+
+'Justin Boyan',4,8,9,20,18,19,8,13,False,True,True,False,True,False,c,v,c,c,v,c,True,False,+
+'Daniel L. Silver',5,11,3,0,13,8,4,11,False,True,False,True,True,False,c,v,c,v,v,c,True,True,+
+'David W. Aha',4,8,3,0,21,8,3,-65,False,True,False,True,False,False,c,v,c,v,c,c,False,False,+
+'Robert S. Roos',4,10,17,14,1,4,17,19,False,True,False,True,False,False,c,v,c,v,c,c,True,True,+
+'David Loewenstern',6,11,3,0,21,8,3,-65,False,True,False,True,False,False,c,v,c,v,c,c,False,False,+
+'Eric Baum',4,5,4,17,8,2,-65,1,True,False,True,True,False,False,v,c,v,c,c,c,True,True,-
+'John M. Zelle',3,10,9,14,7,13,-65,12,False,True,False,False,False,True,c,v,c,c,c,c,True,False,+
+'Arun Sharma',4,7,0,17,20,13,-65,18,True,False,True,False,False,True,v,c,v,c,c,c,True,True,-
+'Ronitt Rubinfeld',5,11,17,14,13,8,19,19,False,True,False,True,False,False,c,v,c,v,c,c,True,False,+
+'Thomas Ellman',4,9,19,7,14,12,0,18,False,False,True,True,True,True,c,c,v,c,v,c,True,True,-
+'Aaron Feigelson',7,8,0,0,17,14,13,-65,True,True,False,True,False,False,v,v,c,v,c,c,False,False,+
+'Harris Drucker',4,10,7,0,17,17,8,18,False,True,False,False,True,True,c,v,c,c,v,c,True,False,+
+'Carla E. Brodley',5,11,2,0,17,11,0,-65,True,True,False,False,True,False,c,v,c,c,v,c,False,False,+
+'Alexander M. Meystel',6,14,0,11,4,23,0,13,True,False,True,False,True,False,v,c,v,c,v,c,False,False,-
+'Maja Mataric',5,7,12,0,9,0,-65,12,True,True,False,True,False,True,c,v,c,v,c,c,True,False,+
+'Leonard Pitt',4,8,11,4,14,13,0,17,False,True,True,False,True,False,c,v,v,c,v,c,False,True,+
+'Eyal Kushilevitz',6,10,4,24,0,11,-65,10,True,True,True,False,False,True,v,c,v,c,c,c,True,False,-
+'Long-Ji Lin',3,8,11,14,13,6,-52,9,False,True,False,True,True,False,c,v,c,c,c,c,False,False,+
+'Ameur Foued',6,5,0,12,4,20,17,-65,True,True,True,True,False,False,v,c,v,v,c,c,False,False,-
+'Antoine Cornuejols',8,10,0,13,19,14,8,13,True,False,False,True,True,False,v,c,c,v,v,c,False,True,-
+'Welton Becket',4,9,22,4,11,19,14,13,True,True,False,False,True,False,c,v,c,c,v,c,True,True,+
+'Haym Hirsh',2,8,7,0,24,12,-65,7,False,True,True,True,False,False,c,v,c,c,c,c,True,False,+
+'Hiroshi Motoda',6,8,7,8,17,14,18,7,False,True,False,True,True,False,c,v,c,v,c,c,False,True,+
+'John Fischer',3,9,9,14,7,13,-65,5,False,True,False,False,False,False,c,v,c,c,c,c,True,False,+
+'George A. Drastal',6,11,6,4,14,17,6,4,True,True,True,False,True,True,c,v,v,c,c,v,True,False,+
+'William Cohen',5,8,22,8,11,11,8,0,True,True,False,False,True,True,c,v,c,c,v,v,False,False,+
+'Jing Peng',2,7,9,8,13,6,-65,15,False,True,False,True,False,False,c,v,c,c,c,c,True,True,+
+'Alma Whitten',4,8,0,11,12,0,-65,22,True,False,True,True,False,True,v,c,c,v,c,c,True,False,-
+'David Haussler',5,9,3,0,21,8,3,-65,False,True,False,True,False,False,c,v,c,v,c,c,False,True,+
+'Joel Ratsaby',4,8,9,14,4,11,-65,17,False,True,True,False,False,False,c,v,v,c,c,c,True,False,+
+'L. Thorne McCarty',3,14,11,-51,-65,19,7,14,False,False,False,False,False,True,c,c,c,c,c,v,True,False,-
+'Chen K. Tham',2,10,2,7,4,13,-65,10,True,False,True,False,False,True,c,c,v,c,c,c,True,True,-
+'Kan Deng',2,6,10,0,13,-65,3,4,True,True,False,False,False,True,c,v,c,c,c,v,False,True,+
+'Russell Greiner',5,10,17,20,18,18,4,11,False,True,True,True,True,False,c,v,c,c,v,c,False,False,+
+'Steffen Lange',4,9,18,19,4,5,5,4,True,False,True,False,False,True,c,c,v,c,c,v,False,False,-
+'Andrew W. Moore',5,10,0,13,3,17,4,22,True,False,False,False,True,True,v,c,c,c,v,c,True,False,-
+'Armand Prieditis',6,10,0,17,12,0,13,3,True,False,True,True,False,False,v,c,c,v,c,c,True,False,-
+'Dunja Mladenic',5,9,3,20,13,9,0,-65,False,True,False,False,True,False,c,v,c,c,v,c,False,True,+
+'Jong-Hoon Oh',4,8,9,14,13,6,-52,7,False,True,False,True,True,False,c,v,c,c,c,c,False,True,+
+'Ken Lang',2,6,10,4,13,-65,11,0,True,True,False,False,False,True,c,v,c,c,c,v,False,True,+
+'Bernhard Pfahringer',5,14,1,4,17,13,7,0,False,True,False,False,False,True,c,v,c,c,c,v,True,True,+
+'Ronald L. Rivest',4,12,17,14,13,0,11,3,False,True,False,True,False,False,c,v,c,v,c,c,True,True,+
+'Robert Williamson',6,11,17,14,1,4,17,19,False,True,False,True,False,False,c,v,c,v,c,c,True,True,+
+'Stuart Russell',4,10,18,19,20,0,17,19,True,False,True,True,False,False,c,c,v,v,c,c,True,False,-
+'Andrew Y. Ng',2,10,0,13,3,17,4,22,True,False,False,False,True,True,v,c,c,c,v,c,True,True,-
+'Efim Kinber',4,7,4,5,8,12,-65,10,True,False,True,True,False,True,v,c,v,c,c,c,True,True,-
+'David Finton',4,8,3,0,21,8,3,-65,False,True,False,True,False,False,c,v,c,v,c,c,False,True,+
+'Mark Staley',3,8,12,0,17,10,-65,18,True,True,False,True,False,True,c,v,c,c,c,c,True,True,+
+'Filippo Neri',5,7,5,8,11,8,15,15,False,True,False,True,False,False,c,v,c,v,c,c,False,True,+
+'Jonathan Hodgson',5,11,9,14,13,0,19,7,False,True,False,True,False,False,c,v,c,v,c,c,True,False,+
+'Dennis F. Kibler',4,12,3,4,13,13,8,18,False,True,False,False,True,True,c,v,c,c,v,c,True,True,+
+'Michael J. Donahue',7,11,12,8,2,7,0,4,True,True,True,False,True,True,c,v,c,c,v,v,False,False,+
