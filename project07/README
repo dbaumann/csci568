@@ -1,0 +1,4 @@
+Project 6
+
+Implement a multilayer perceptron network with a single hidden layer consisting of two hidden nodes. The network should be trained with the following example only:
+(1, 0.25, 0.25)->(1, -1, 0)
