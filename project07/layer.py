@@ -12,7 +12,7 @@ class layer:
     def __setitem__(self, key, value):
         """
         @raises IndexError: when a node with the suggested key doesn't exist
-        @raises TypeError: when passed a value that doesn't behave like a node ought to
+        @raises TypeError:  when passed a value that doesn't behave like a node ought to
         """
         
         #make sure the item being set can actually be activated, but don't activate:
