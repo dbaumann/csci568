@@ -8,4 +8,4 @@ Files:
 main.py:        driver file
 network.py:     network abstraction; encapsulates layers and weights
 layer.py:       iterable random access container for nodes
-node.py:        a representation of a neuron which can be "activated"
+node.py:        a representation of a neuron which can be activated and generate an error signal

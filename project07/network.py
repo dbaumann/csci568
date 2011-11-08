@@ -6,13 +6,10 @@ from layer import layer
 INPUT=0
 HIDDEN=1
 OUTPUT=2
-#
-# Consider switching to explicitly named members e.g. self.output instead of self.layers[OUTPUT]
-#
 
 class network:
     """
-    An artificial neural network. Contains a single hidden layer.
+    An artificial neural network. Contains a single hidden layer of an arbitrary number of nodes.
     The sizes of the input and output layers are determined from those of the input and output parameters.
     """
 
@@ -40,6 +37,7 @@ class network:
 
         @raises     ValueError:     if input list size isn't the same as number of established nodes in input layer
         """
+        
         if(len(new_input) != len(self.layers[INPUT])):
             raise ValueError("Attempted to refresh input layer with the wrong number of values.")
 
@@ -81,8 +79,10 @@ class network:
         delta_avgs = [1.0]*history_size
         icount = 0
 
+        result = [-1]*len(self.layers[OUTPUT])
+
         while(not stopping_cond):
-            (input, output, training_rate) = yield
+            (input, output, training_rate) = yield result
 
             self.refresh_input(input)
             self.feed_forward()
@@ -118,9 +118,11 @@ class network:
                     self.weights[INPUT][i][j] += training_rate * hnode.get_error_signal() * inode.value()
 
             result = self.feed_forward()
-            
-            print "result:"
-            print result
+
+
+            #
+            # Determine if stopping condition has been met
+            #
 
             delta_avgs[icount % history_size] = sum(abs(output[i] - result[i]) for i in range(len(result)))/len(result)
 
@@ -128,4 +130,3 @@ class network:
 
             stopping_cond = sum(delta_avgs)/len(delta_avgs) < training_goal
 
-        

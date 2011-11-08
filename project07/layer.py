@@ -15,9 +15,8 @@ class layer:
         @raises TypeError:  when passed a value that doesn't behave like a node ought to
         """
         
-        #make sure the item being set can actually be activated, but don't activate:
-        if('activate' not in dir(value)):
-            raise TypeError("Attempted to add an object to layer that can't be activated.")
+        if(not set(['activate', 'set_error', 'get_error_signal']) <= set(dir(value))):
+            raise TypeError("Attempted to add an object to layer that can't be treated as a node.")
 
         self.nodes[key] = value
 

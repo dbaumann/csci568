@@ -12,6 +12,12 @@ class input_node:
     def activate(self):
         return self.output
 
+    def set_error(self, value):
+        pass
+    
+    def get_error_signal(self):
+        pass
+
 class active_node:
     """A dynamic neuron. Output value can only be changed by activation."""
 
@@ -34,14 +40,13 @@ class active_node:
         self.error = value
 
     def get_error_signal(self, correction_function=lambda x: 1.0-x*x):
-        """@param  activation_function:    sigmoid derivative used in calculation of output"""
+        """@param  correction_function:    sigmoid derivative used in calculation of output"""
 
         return correction_function(self.output) * self.error
 
     def __dot_product(self, vector1, vector2):
-        """
-        @raises ValueError: if arguments don't have same length
-        """
+        """@raises  ValueError: if arguments don't have same length"""
+        
         if(len(vector1) != len(vector2)):
             raise ValueError("Dot product arguments should have same length.")
 
