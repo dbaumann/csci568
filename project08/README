@@ -1,0 +1,277 @@
+CSCI 568 - Project 8: Mushroom Data
+Dan Baumann
+
+1.  Statistics
+
+The mushroom dataset consists of categorical data. As such, commonplace summary statistics such as mean and standard deviation are replaced by category frequencies and mode. In the KNIME toolkit, the statistics node generates a reverse-ordered list of category frequencies for each attribute, with the first value being the mode. For the mushroom data set which consists of 8124 instances, these frequencies are as follows:
+
+1. cap-shape:
+convex:    	3656
+flat:       	3152
+knobbed:    	828
+bell:       	452
+sunken:     	32
+conical:    	4
+
+2. cap-surface:
+scaly:      	3244
+smooth:     	2556
+fibrous:    	2320
+grooves:    	4
+
+3. cap-color:
+brown:      	2284
+gray:       	1840
+red:        	1500
+yellow:     	1072
+white:      	1040
+buff:       	168
+pink:       	144
+cinnamon:   	44
+purple:     	16
+green:      	16
+
+4. bruises?:
+no bruises: 	4748
+bruises:    	3376
+
+5. odor:
+none:       	3528
+foul:       	2160
+fishy:      	576
+spicy:      	576
+almond:     	400
+anise:      	400
+pungent:    	256
+creosote:   	192
+musty:      	36
+
+6. gill-attachment:
+free:       	7914
+attached:   	210
+
+7. gill-spacing:
+close:      	6812
+crowded:    	1312
+
+8. gill-size:
+broad:      	5612
+narrow:     	2512
+
+9. gill-color:
+buff:       	1728
+pink:       	1492
+white:      	1202
+brown:      	1048
+gray:       	752
+chocolate: 	732
+purple:     	492
+black:      	408
+red:        	96
+yellow:     	86
+orange:         64
+green:          24
+
+10. stalk-shape:
+tapering:   	4608
+enlarging:  	3516
+
+11. stalk-root:
+bulbous:    	3776
+?(missing): 	2480
+equal:      	1120
+club:       	556
+rooted:     	192
+
+12. stalk-surface-above-ring:
+smooth:     	5176
+silky:      	2372
+fibrous:    	552
+scaly:      	24
+
+13. stalk-surface-below-ring:
+smooth:     	4936
+silky:      	2304
+fibrous:    	600
+scaly:      	284
+
+14. stalk-color-above-ring:
+white:      	4464
+pink:       	1872
+gray:       	576
+brown:      	448
+buff:       	432
+orange:     	192
+red:        	96
+cinnamon:   	36
+yellow:     	8
+
+15. stalk-color-below-ring:
+white:      	4384
+pink:       	1872
+gray:       	576
+brown:      	512
+buff:       	432
+orange:     	192
+red:        	96
+cinnamon:   	36
+yellow:     	24
+
+16. veil-type:
+partial:    	8124
+
+17. veil-color:
+white:      	7924
+brown:      	96
+orange:     	96
+yellow:    	8
+
+18. ring-number:
+one:        	7488
+two:        	600
+none:       	36
+
+19. ring-type:
+pendant:    	3968
+evanescent: 	2776
+large:      	1296
+flaring:    	48
+none:       	36
+
+20. spore-print-color:
+white:      	2388
+brown:      	1968 
+black:      	1872 
+chocolate:  	1632 
+green:      	72 
+purple:     	48 
+orange:     	48
+yellow:     	48
+buff:       	48
+
+21. population:
+several:    	4040
+solitary:   	1712
+scattered:  	1248
+numerous:  	400
+abundant:   	384
+clustered:  	340
+
+22. habitat:
+woods:      	3148
+grasses:    	2148
+paths:      	1144
+leaves:     	832
+urban:      	368
+meadows:    	292
+waste:      	192
+
+
+2. Clustering
+
+To cluster these categorical data into groups, traditional clustering algorithms such as k-means or DBSCAN are not appropriate as they rely on distance metrics that are only appropriate for continuous data. Instead, a Python script was written to generate a proximity matrix from the categorical data using Hamming distance. Next, this proximity matrix was imported into KNIME using the Distance Matrix extension. The k-medoids algorithm was then applied with k=2:
+
+The two medoid objects are:
+
+2405: e,f,y,g,t,n,f,c,b,p,t,b,s,s,p,p,p,w,o,p,k,v,d
+This object was representative of the cluster of edible mushrooms, which had 5026 objects assigned to it.
+
+7625: p,k,s,n,f,y,f,c,n,b,t,?,s,k,p,w,p,w,o,e,w,v,l
+This object was representative of the cluster of poisonous mushrooms, which had 3098 objects assigned to it.
+
+
+3. Anomaly Detection
+
+The suboptimal nature of this clustering suggests the presence of outliers. This provided an opportunity to use the result of the clustering algorithm for the sake of anomaly detection. Therefore, the relative distances of each object to each of the mediods was exported to CSV. Subsequently a Python script was written to scan each pair of medoid distances looking for objects that were equidistant to both centroids, which would indicate that they were neither edible nor poisonous. This script identified the following objects as anomalies:
+
+4077: e,f,y,u,f,n,f,c,n,h,e,?,s,f,w,w,p,w,o,f,h,y,d
+4277: e,k,y,n,f,n,f,w,n,w,e,b,f,f,w,n,p,w,o,e,w,v,l
+4492: e,f,f,c,f,n,f,w,n,w,e,b,s,f,w,n,p,w,o,e,w,v,l
+4648: e,f,y,u,f,n,f,c,n,h,e,?,s,f,w,w,p,w,o,f,h,v,d
+4718: e,f,y,u,f,n,f,c,n,u,e,?,s,f,w,w,p,w,o,f,h,v,d
+4900: e,f,y,w,f,n,f,c,n,h,e,?,s,f,w,w,p,w,o,f,h,v,d
+5006: e,f,y,u,f,n,f,c,n,u,e,?,s,f,w,w,p,w,o,f,h,y,d
+5024: e,f,y,u,f,n,f,c,n,p,e,?,s,f,w,w,p,w,o,f,h,v,d
+5110: e,f,y,c,f,n,f,w,n,w,e,b,f,s,w,n,p,w,o,e,w,v,l
+5149: e,f,f,n,f,n,f,w,n,w,e,b,s,f,w,n,p,w,o,e,w,v,l
+5186: e,f,y,c,f,n,f,w,n,w,e,b,s,f,w,n,p,w,o,e,w,v,l
+5232: e,k,f,c,f,n,f,w,n,w,e,b,f,f,w,n,p,w,o,e,w,v,l
+5239: e,k,f,n,f,n,f,w,n,w,e,b,f,f,w,n,p,w,o,e,w,v,l
+5284: e,f,y,w,f,n,f,c,n,u,e,?,s,f,w,w,p,w,o,f,h,y,d
+5326: e,f,y,w,f,n,f,c,n,p,e,?,s,f,w,w,p,w,o,f,h,v,d
+5431: e,f,y,r,f,n,f,c,n,h,e,?,s,f,w,w,p,w,o,f,h,y,d
+5516: e,f,y,w,f,n,f,c,n,h,e,?,s,f,w,w,p,w,o,f,h,y,d
+5529: e,f,y,r,f,n,f,c,n,h,e,?,s,f,w,w,p,w,o,f,h,v,d
+5552: e,f,y,r,f,n,f,c,n,p,e,?,s,f,w,w,p,w,o,f,h,v,d
+5554: e,f,y,u,f,n,f,c,n,p,e,?,s,f,w,w,p,w,o,f,h,y,d
+5583: e,f,y,n,f,n,f,w,n,w,e,b,f,s,w,n,p,w,o,e,w,v,l
+5667: e,k,y,c,f,n,f,w,n,w,e,b,f,f,w,n,p,w,o,e,w,v,l
+5703: e,f,f,c,f,n,f,w,n,w,e,b,f,s,w,n,p,w,o,e,w,v,l
+5715: e,f,y,w,f,n,f,c,n,u,e,?,s,f,w,w,p,w,o,f,h,v,d
+5728: e,f,f,n,f,n,f,w,n,w,e,b,f,s,w,n,p,w,o,e,w,v,l
+5765: e,f,y,r,f,n,f,c,n,u,e,?,s,f,w,w,p,w,o,f,h,y,d
+5774: e,f,y,r,f,n,f,c,n,p,e,?,s,f,w,w,p,w,o,f,h,y,d
+5795: e,f,y,n,f,n,f,w,n,w,e,b,s,f,w,n,p,w,o,e,w,v,l
+5848: e,f,y,r,f,n,f,c,n,u,e,?,s,f,w,w,p,w,o,f,h,v,d
+5949: e,f,y,w,f,n,f,c,n,p,e,?,s,f,w,w,p,w,o,f,h,y,d
+6280: e,b,s,w,f,n,f,w,b,p,e,?,k,k,w,w,p,w,t,p,w,s,g
+6367: e,k,f,w,f,n,f,w,b,p,e,?,k,k,w,w,p,w,t,p,w,n,g
+6404: e,k,f,g,f,n,f,w,b,g,e,?,k,k,w,w,p,w,t,p,w,s,g
+6416: p,x,y,e,f,m,f,c,b,w,e,c,k,y,c,c,p,w,n,n,w,c,d
+6861: e,k,s,w,f,n,f,w,b,g,e,?,k,k,w,w,p,w,t,p,w,s,g
+6915: e,b,s,g,f,n,f,w,b,g,e,?,k,k,w,w,p,w,t,p,w,n,g
+6925: e,b,f,g,f,n,f,w,b,p,e,?,k,k,w,w,p,w,t,p,w,n,g
+6991: e,k,s,g,f,n,f,w,b,p,e,?,k,k,w,w,p,w,t,p,w,n,g
+7005: e,k,s,w,f,n,f,w,b,g,e,?,k,k,w,w,p,w,t,p,w,n,g
+7021: e,k,f,w,f,n,f,w,b,g,e,?,k,k,w,w,p,w,t,p,w,n,g
+7066: p,x,y,n,f,m,a,c,b,w,e,c,k,y,c,c,p,w,n,n,w,c,d
+7068: e,k,s,g,f,n,f,w,b,g,e,?,k,k,w,w,p,w,t,p,w,s,g
+7135: e,k,s,g,f,n,f,w,b,p,e,?,k,k,w,w,p,w,t,p,w,s,g
+7184: e,b,s,w,f,n,f,w,b,g,e,?,k,k,w,w,p,w,t,p,w,n,g
+7209: e,k,f,g,f,n,f,w,b,g,e,?,k,k,w,w,p,w,t,p,w,n,g
+7218: e,k,s,g,f,n,f,w,b,g,e,?,k,k,w,w,p,w,t,p,w,n,g
+7232: e,b,s,g,f,n,f,w,b,g,e,?,k,k,w,w,p,w,t,p,w,s,g
+7237: e,b,s,g,f,n,f,w,b,p,e,?,k,k,w,w,p,w,t,p,w,n,g
+7320: e,b,f,w,f,n,f,w,b,p,e,?,k,k,w,w,p,w,t,p,w,n,g
+7369: p,x,y,c,f,m,a,c,b,w,e,c,k,y,c,c,p,w,n,n,w,c,d
+7399: e,b,s,g,f,n,f,w,b,p,e,?,k,k,w,w,p,w,t,p,w,s,g
+7470: p,x,y,e,f,m,a,c,b,w,e,c,k,y,c,c,p,w,n,n,w,c,d
+7525: e,b,s,w,f,n,f,w,b,g,e,?,k,k,w,w,p,w,t,p,w,s,g
+7529: e,b,f,g,f,n,f,w,b,g,e,?,k,k,w,w,p,w,t,p,w,s,g
+7542: e,k,f,w,f,n,f,w,b,g,e,?,k,k,w,w,p,w,t,p,w,s,g
+7553: e,k,s,w,f,n,f,w,b,p,e,?,k,k,w,w,p,w,t,p,w,s,g
+7605: e,k,f,g,f,n,f,w,b,p,e,?,k,k,w,w,p,w,t,p,w,s,g
+7644: e,k,f,g,f,n,f,w,b,p,e,?,k,k,w,w,p,w,t,p,w,n,g
+7681: e,b,f,w,f,n,f,w,b,p,e,?,k,k,w,w,p,w,t,p,w,s,g
+7715: p,x,y,c,f,m,f,c,b,w,e,c,k,y,c,c,p,w,n,n,w,c,d
+7806: p,x,y,n,f,m,f,c,b,w,e,c,k,y,c,c,p,w,n,n,w,c,d
+7839: e,b,f,g,f,n,f,w,b,g,e,?,k,k,w,w,p,w,t,p,w,n,g
+7861: e,b,s,w,f,n,f,w,b,p,e,?,k,k,w,w,p,w,t,p,w,n,g
+7873: e,k,s,w,f,n,f,w,b,p,e,?,k,k,w,w,p,w,t,p,w,n,g
+7961: e,b,f,w,f,n,f,w,b,g,e,?,k,k,w,w,p,w,t,p,w,s,g
+8016: e,k,f,w,f,n,f,w,b,p,e,?,k,k,w,w,p,w,t,p,w,s,g
+8018: e,b,f,w,f,n,f,w,b,g,e,?,k,k,w,w,p,w,t,p,w,n,g
+8085: e,b,f,g,f,n,f,w,b,p,e,?,k,k,w,w,p,w,t,p,w,s,g
+
+
+4. Classification
+
+Given the categorical nature of the data, a decision tree classifier seemed ideal for this purpose. After all missing values in column 11 (stalk-root) were replaced with the most frequent value (b), the data were partitioned into a training set and a test set in a 10/90 split, using random sampling. Furthermore, the Gini Impurity index was used to determine the quality of each potential split. The resulting model classified objects from the test set with 99.904% accuracy.
+
+Confusion Matrix:
+actual \ predicted		p		e
+p				3511		7
+e				0		3794
+
+Worthy of note is the fact that 7 instances were classified as edible when they were in fact poisonous.
+
+The structure of the decision tree itself agreed with the documented classification rules that were provided with the original data set. Namely, it indicated that an odor of "almond", "anise", or "none" is the most decisive criterion for determining edibility, followed by spore-print-color="green".
+
+
+5. Association Analysis
+
+Following the replacement of missing values in the same manner as in section 4, the input data was binarized. The resulting data was then fed into an association rule learner configured to ouput all closed itemsets - that is, those itemsets with no superset of equal support. The following association rules resulted:
+
+RULE							SUPPORT			CONFIDENCE		LIFT
+veil-color=white --> gill-attachment=free		0.9731659281142294	0.997728419989904	1.0242033970176878
+gill-attachment=free --> veil-color=white		0.9731659281142294	0.9989891331817033	1.0242033970176878
