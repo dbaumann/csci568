@@ -17,6 +17,21 @@ pre.code {
   background-color: #F0FFF0;
 }
 
+p.equation {
+  padding: 20px;
+  background-color: #F1F8FF;
+  position: relative;
+}
+
+p.author {
+  font-size: 1.2em;
+  font-style: italic;
+}
+
+p.caption {
+  color: #999;
+}
+
 div.container {
   width: 700px;
 }

@@ -1,0 +1,153 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head> 
+<title>Application: The Classic Mushroom Dataset</title>
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<meta name="author" content="" />
+<meta http-equiv="content-type" content="text/html;charset=utf-8" />
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<link rel="stylesheet" href="css/blueprint/screen.css" type="text/css" media="screen, projection" />
+<link rel="stylesheet" href="css/blueprint/print.css" type="text/css" media="print" />
+<link rel="stylesheet" href="css/main.css" type="text/css" media="screen" /> 
+<!--[if IE]>
+  <link rel="stylesheet" href="css/blueprint/ie.css" type="text/css" media="screen, projection">
+<![endif]-->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+</script>
+<script type="text/javascript"
+  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+</head>
+<body>
+<div class="container">
+  <h1>Data Mining Portfolio</h1>
+  <p class="author">Dan Baumann</p>
+
+  <h2>Application: The Classic Mushroom Dataset</h2>
+  <p class="introduction">The task was to determine what patterns exist in a dataset containing attributes of certain mushroom species by applying clustering, classification, anomaly detection, and association analysis.</p>
+
+
+  <h3>Statistics</h3>
+  <p>The mushroom dataset consists of categorical data. As such, commonplace summary statistics such as mean and standard deviation are replaced by category frequencies and mode. In the KNIME toolkit, the statistics node generates a reverse-ordered list of category frequencies for each attribute, with the first value being the mode. For the mushroom dataset which consists of 8124 instances, these frequencies are provided <a href="mushroom_data.txt">here</a>.</p>
+
+  
+  <h3>Clustering</h3>
+  <p>To cluster these categorical data into groups, traditional clustering algorithms such as k-means or DBSCAN are not appropriate as they rely on distance metrics that are only appropriate for continuous data. Instead, a Python script was written to generate a proximity matrix from the categorical data using Hamming distance. Next, this proximity matrix was imported into KNIME using the Distance Matrix extension. The k-medoids algorithm was then applied with k=2:</p>
+
+  <pre class="code">
+  The two medoid objects are:
+
+  2405: e,f,y,g,t,n,f,c,b,p,t,b,s,s,p,p,p,w,o,p,k,v,d
+  This object was representative of the cluster of edible mushrooms,
+  which had 5026 objects assigned to it.
+
+  7625: p,k,s,n,f,y,f,c,n,b,t,?,s,k,p,w,p,w,o,e,w,v,l
+  This object was representative of the cluster of poisonous mushrooms,
+  which had 3098 objects assigned to it.
+  </pre>
+
+
+  <h3>Anomaly Detection</h3>
+  <p>The suboptimal nature of this clustering suggests the presence of outliers. This provided an opportunity to use the result of the clustering algorithm for the sake of anomaly detection. Therefore, the relative distances of each object to each of the mediods was exported to CSV. Subsequently a Python script was written to scan each pair of medoid distances looking for objects that were equidistant to both centroids, which would indicate that they were neither edible nor poisonous. This script identified the following objects as anomalies:</p>
+
+  <pre class="code">
+  4077: e,f,y,u,f,n,f,c,n,h,e,?,s,f,w,w,p,w,o,f,h,y,d
+  4277: e,k,y,n,f,n,f,w,n,w,e,b,f,f,w,n,p,w,o,e,w,v,l
+  4492: e,f,f,c,f,n,f,w,n,w,e,b,s,f,w,n,p,w,o,e,w,v,l
+  4648: e,f,y,u,f,n,f,c,n,h,e,?,s,f,w,w,p,w,o,f,h,v,d
+  4718: e,f,y,u,f,n,f,c,n,u,e,?,s,f,w,w,p,w,o,f,h,v,d
+  4900: e,f,y,w,f,n,f,c,n,h,e,?,s,f,w,w,p,w,o,f,h,v,d
+  5006: e,f,y,u,f,n,f,c,n,u,e,?,s,f,w,w,p,w,o,f,h,y,d
+  5024: e,f,y,u,f,n,f,c,n,p,e,?,s,f,w,w,p,w,o,f,h,v,d
+  5110: e,f,y,c,f,n,f,w,n,w,e,b,f,s,w,n,p,w,o,e,w,v,l
+  5149: e,f,f,n,f,n,f,w,n,w,e,b,s,f,w,n,p,w,o,e,w,v,l
+  5186: e,f,y,c,f,n,f,w,n,w,e,b,s,f,w,n,p,w,o,e,w,v,l
+  5232: e,k,f,c,f,n,f,w,n,w,e,b,f,f,w,n,p,w,o,e,w,v,l
+  5239: e,k,f,n,f,n,f,w,n,w,e,b,f,f,w,n,p,w,o,e,w,v,l
+  5284: e,f,y,w,f,n,f,c,n,u,e,?,s,f,w,w,p,w,o,f,h,y,d
+  5326: e,f,y,w,f,n,f,c,n,p,e,?,s,f,w,w,p,w,o,f,h,v,d
+  5431: e,f,y,r,f,n,f,c,n,h,e,?,s,f,w,w,p,w,o,f,h,y,d
+  5516: e,f,y,w,f,n,f,c,n,h,e,?,s,f,w,w,p,w,o,f,h,y,d
+  5529: e,f,y,r,f,n,f,c,n,h,e,?,s,f,w,w,p,w,o,f,h,v,d
+  5552: e,f,y,r,f,n,f,c,n,p,e,?,s,f,w,w,p,w,o,f,h,v,d
+  5554: e,f,y,u,f,n,f,c,n,p,e,?,s,f,w,w,p,w,o,f,h,y,d
+  5583: e,f,y,n,f,n,f,w,n,w,e,b,f,s,w,n,p,w,o,e,w,v,l
+  5667: e,k,y,c,f,n,f,w,n,w,e,b,f,f,w,n,p,w,o,e,w,v,l
+  5703: e,f,f,c,f,n,f,w,n,w,e,b,f,s,w,n,p,w,o,e,w,v,l
+  5715: e,f,y,w,f,n,f,c,n,u,e,?,s,f,w,w,p,w,o,f,h,v,d
+  5728: e,f,f,n,f,n,f,w,n,w,e,b,f,s,w,n,p,w,o,e,w,v,l
+  5765: e,f,y,r,f,n,f,c,n,u,e,?,s,f,w,w,p,w,o,f,h,y,d
+  5774: e,f,y,r,f,n,f,c,n,p,e,?,s,f,w,w,p,w,o,f,h,y,d
+  5795: e,f,y,n,f,n,f,w,n,w,e,b,s,f,w,n,p,w,o,e,w,v,l
+  5848: e,f,y,r,f,n,f,c,n,u,e,?,s,f,w,w,p,w,o,f,h,v,d
+  5949: e,f,y,w,f,n,f,c,n,p,e,?,s,f,w,w,p,w,o,f,h,y,d
+  6280: e,b,s,w,f,n,f,w,b,p,e,?,k,k,w,w,p,w,t,p,w,s,g
+  6367: e,k,f,w,f,n,f,w,b,p,e,?,k,k,w,w,p,w,t,p,w,n,g
+  6404: e,k,f,g,f,n,f,w,b,g,e,?,k,k,w,w,p,w,t,p,w,s,g
+  6416: p,x,y,e,f,m,f,c,b,w,e,c,k,y,c,c,p,w,n,n,w,c,d
+  6861: e,k,s,w,f,n,f,w,b,g,e,?,k,k,w,w,p,w,t,p,w,s,g
+  6915: e,b,s,g,f,n,f,w,b,g,e,?,k,k,w,w,p,w,t,p,w,n,g
+  6925: e,b,f,g,f,n,f,w,b,p,e,?,k,k,w,w,p,w,t,p,w,n,g
+  6991: e,k,s,g,f,n,f,w,b,p,e,?,k,k,w,w,p,w,t,p,w,n,g
+  7005: e,k,s,w,f,n,f,w,b,g,e,?,k,k,w,w,p,w,t,p,w,n,g
+  7021: e,k,f,w,f,n,f,w,b,g,e,?,k,k,w,w,p,w,t,p,w,n,g
+  7066: p,x,y,n,f,m,a,c,b,w,e,c,k,y,c,c,p,w,n,n,w,c,d
+  7068: e,k,s,g,f,n,f,w,b,g,e,?,k,k,w,w,p,w,t,p,w,s,g
+  7135: e,k,s,g,f,n,f,w,b,p,e,?,k,k,w,w,p,w,t,p,w,s,g
+  7184: e,b,s,w,f,n,f,w,b,g,e,?,k,k,w,w,p,w,t,p,w,n,g
+  7209: e,k,f,g,f,n,f,w,b,g,e,?,k,k,w,w,p,w,t,p,w,n,g
+  7218: e,k,s,g,f,n,f,w,b,g,e,?,k,k,w,w,p,w,t,p,w,n,g
+  7232: e,b,s,g,f,n,f,w,b,g,e,?,k,k,w,w,p,w,t,p,w,s,g
+  7237: e,b,s,g,f,n,f,w,b,p,e,?,k,k,w,w,p,w,t,p,w,n,g
+  7320: e,b,f,w,f,n,f,w,b,p,e,?,k,k,w,w,p,w,t,p,w,n,g
+  7369: p,x,y,c,f,m,a,c,b,w,e,c,k,y,c,c,p,w,n,n,w,c,d
+  7399: e,b,s,g,f,n,f,w,b,p,e,?,k,k,w,w,p,w,t,p,w,s,g
+  7470: p,x,y,e,f,m,a,c,b,w,e,c,k,y,c,c,p,w,n,n,w,c,d
+  7525: e,b,s,w,f,n,f,w,b,g,e,?,k,k,w,w,p,w,t,p,w,s,g
+  7529: e,b,f,g,f,n,f,w,b,g,e,?,k,k,w,w,p,w,t,p,w,s,g
+  7542: e,k,f,w,f,n,f,w,b,g,e,?,k,k,w,w,p,w,t,p,w,s,g
+  7553: e,k,s,w,f,n,f,w,b,p,e,?,k,k,w,w,p,w,t,p,w,s,g
+  7605: e,k,f,g,f,n,f,w,b,p,e,?,k,k,w,w,p,w,t,p,w,s,g
+  7644: e,k,f,g,f,n,f,w,b,p,e,?,k,k,w,w,p,w,t,p,w,n,g
+  7681: e,b,f,w,f,n,f,w,b,p,e,?,k,k,w,w,p,w,t,p,w,s,g
+  7715: p,x,y,c,f,m,f,c,b,w,e,c,k,y,c,c,p,w,n,n,w,c,d
+  7806: p,x,y,n,f,m,f,c,b,w,e,c,k,y,c,c,p,w,n,n,w,c,d
+  7839: e,b,f,g,f,n,f,w,b,g,e,?,k,k,w,w,p,w,t,p,w,n,g
+  7861: e,b,s,w,f,n,f,w,b,p,e,?,k,k,w,w,p,w,t,p,w,n,g
+  7873: e,k,s,w,f,n,f,w,b,p,e,?,k,k,w,w,p,w,t,p,w,n,g
+  7961: e,b,f,w,f,n,f,w,b,g,e,?,k,k,w,w,p,w,t,p,w,s,g
+  8016: e,k,f,w,f,n,f,w,b,p,e,?,k,k,w,w,p,w,t,p,w,s,g
+  8018: e,b,f,w,f,n,f,w,b,g,e,?,k,k,w,w,p,w,t,p,w,n,g
+  8085: e,b,f,g,f,n,f,w,b,p,e,?,k,k,w,w,p,w,t,p,w,s,g
+  </pre>
+
+
+  <h3>Classification</h3>
+  <p>Given the categorical nature of the data, a decision tree classifier seemed ideal for this purpose. After all missing values in column 11 (stalk-root) were replaced with the most frequent value (b), the data were partitioned into a training set and a test set in a 10/90 split, using random sampling. Furthermore, the Gini Impurity index was used to determine the quality of each potential split. The resulting model classified objects from the test set with 99.904% accuracy.</p>
+
+  <pre class="code">
+  Confusion Matrix:
+  actual \ predicted    p       e
+  p                     3511    7
+  e                     0       3794
+  </pre>
+
+  <p>Worthy of note is the fact that 7 instances were classified as edible when they were in fact poisonous. The structure of the decision tree itself agreed with the documented classification rules that were provided with the original data set. Namely, it indicated that an odor of "almond", "anise", or "none" is the most decisive criterion for determining edibility, followed by spore-print-color="green".</p>
+
+  <h3>Association Analysis</h3>
+  <p>Following the replacement of missing values in the same manner as in section 4, the input data was binarized. The resulting data was then fed into an association rule learner configured to output all closed itemsets - that is, those itemsets with no superset of equal support. The following association rules resulted:</p>
+
+  <pre class="code">
+  RULE                          SUPPORT             CONFIDENCE          LIFT
+  veil-color=white
+    --> gill-attachment=free    0.9731659281142294  0.997728419989904   1.0242033970176878
+  gill-attachment=free
+    --> veil-color=white        0.9731659281142294  0.9989891331817033  1.0242033970176878
+  </pre>
+
+</div>
+</body>
+</html>

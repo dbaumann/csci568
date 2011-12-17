@@ -1,0 +1,115 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head> 
+<title>Similarity Metrics</title>
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<meta name="author" content="" />
+<meta http-equiv="content-type" content="text/html;charset=utf-8" />
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<link rel="stylesheet" href="css/blueprint/screen.css" type="text/css" media="screen, projection" />
+<link rel="stylesheet" href="css/blueprint/print.css" type="text/css" media="print" />
+<link rel="stylesheet" href="css/main.css" type="text/css" media="screen" /> 
+<!--[if IE]>
+  <link rel="stylesheet" href="css/blueprint/ie.css" type="text/css" media="screen, projection">
+<![endif]-->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+</script>
+<script type="text/javascript"
+  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+</head>
+<body>
+<div class="container">
+  <h1>Data Mining Portfolio</h1>
+  <p class="author">Dan Baumann</p>
+
+  <h2>Similarity Metrics</h2>
+  <p class="introduction">The concept of similarity is a cornerstone of modern data mining. It provides a quantitative measure of how data objects are related, and can be adapted for use in a variety of situations. Similarity metrics are employed by several data mining strategies such as clustering, classification, and anomaly detection. The most intuitive notion of similarity is based on distance; the closer two objects are to one another. the more similar they are. For this reason, the intuitive notion inferred by the term 'close' is often finds instructive use in discussions and visualizations, even if it's not directly applicable to a given data set or task. An example of this is multi-dimensional scaling, which is a technique that can use even the most unintuitive similarity metrics to generate a lower-dimensional distance based representation [1].</p>
+
+  <p class="introduction">The notion of Euclidean Distance alluded to above is convenient, but becoming too dependent upon it can be a costly mistake. Often there are more appropriate metrics for a given data set and data mining task. One very common problem that illustrates this issue is that of different attributes being used to represent different kinds of information. For example, ages and incomes can both be described as continuous attributes, but the spread of values for each is dramatically different. Comparing two <em>(age, income)</em> objects using Euclidean Distance will result in much greater perceived differences based on income than based on age. The way to account for this is to either normalize the data in preprocessing or use a more appropriate distance metric, such as Mahalanobis distance. The choice of distance metric should also be based on the type of attributes that appear in the dataset. Comparing small sets of binary data, such as two compressed audio files, can be done with Manhattan distance, which considers the bitwise differences that exist between two objects. Binary data in general is associated with several commonly used metrics, some of which will be discussed below.</p>
+
+  <h3>Euclidean Distance</h3>
+  <p class="equation">
+    $$Distance_{euclidean}(\vec{x}, \vec{y}) = \sqrt{\sum_{k=1}^{n} (x_k-y_k)^2}$$
+  </p>
+
+  <p>Euclidean Distance is the distance between two objects in an n-dimensional space. Almost always, this metric is applied to objects whose attribute values are continuous. In the case that not all of the attributes refer to the same kind of data, it may be necessary to normalize the values such that they fall within the same range.</p>
+
+  <p>In practice, it's best to normalize the result to fit in the range [0,1] so that the metric may be used interchangeably with others.</p>
+
+  <pre class="code">
+class Euclidean(SimilarityMetric):
+  def similarity(vector1, vector2):
+    assert len(vector1) != len(vector2)
+
+    sum_of_squares = sum([pow(vector1[i] - vector2[i], 2) for i in range(len(vector1))])
+
+    return sqrt(sum_of_squares)
+  </pre>
+
+    <h3>Simple Matching Coefficient</h3>
+  <p class="equation">
+    $f_{11}$: number of attributes with $x=1,y=1$<br/>
+    $f_{00}$: number of attributes with $x=0,y=0$<br/>
+    $f_{10}$: number of attributes with $x=1,y=0$<br/>
+    $f_{01}$: number of attributes with $x=0,y=1$<br/>
+
+    $$Distance_{smc}(\vec{x}, \vec{y}) = \frac{f_{11}+f_{00}}{f_{01}+f_{10}+f_{11}+f_{00}}$$
+  </p>
+
+  <p>The simple matching coefficient is the most basic metric available for comparing objects that consist entirely of binary attributes. Because this metric counts both presences ($f_{11}$) and absences ($f_{00}$) equally, it is not appropriate for use on datasets which contain sparsely populated attributes; otherwise the similarity calculations would be dominated by $f_{00}$, and all objects would be considered to be very similar when in fact they aren't.</p>
+
+  <pre class="code">
+class SMC(SimilarityMetric):
+  def similarity(vector1, vector2):
+    assert len(vector1) != len(vector2)
+
+    #only operate on binary data
+    assert set(vector1) | set(vector2) <= set([0,1])
+
+    match0,match1 = 0,0
+
+    for i in range(len(vector1)):
+      if(vector1[i]==0 and vector2[i]==0): match0 += 1
+      if(vector1[i]==1 and vector2[i]==1): match1 += 1
+      
+    return float(match0 + match1)/len(vector1)
+  </pre>
+
+  <h3>Jaccard Coefficient</h3>
+  <p class="equation">
+    $f_{11}$: number of attributes with $x=1,y=1$<br/>
+    $f_{10}$: number of attributes with $x=1,y=0$<br/>
+    $f_{01}$: number of attributes with $x=0,y=1$<br/>
+
+    $$Distance_{jaccard}(\vec{x}, \vec{y}) = \frac{f_{11}}{f_{01}+f_{10}+f_{11}}$$
+  </p>
+
+  <p>The Jaccard Coefficient is a modification of SMC which is suitable for comparing objects that contain asymmetric binary attributes. Like SMC, the compared objects must consist entirely of binary attributes. A common use case for this metric is in the comparison of market baskets, where a 1 indicates that an item was purchased, and a 0 indicates that it was not.<p>
+
+  <pre class="code">
+class Jaccard(SimilarityMetric):
+  def similarity(vector1, vector2):
+    assert len(vector1) != len(vector2)
+
+    #only operate on binary data
+    assert set(vector1) | set(vector2) <= set([0,1])
+
+    match0,match1 = 0,0
+
+    for i in range(len(vector1)):
+      if(vector1[i]==0 and vector2[i]==0): match0 += 1
+      if(vector1[i]==1 and vector2[i]==1): match1 += 1
+      
+    return float(match1)/(len(vector1)-match0)
+  </pre>
+
+  <ol>
+    <li>Segaran, Toby, Hammerbacher, Jeff. Beautiful Data: The Stories Behind Elegant Data Solutions. O'Reilly, Beijing, 2009</li>
+  </ol>
+</div>
+</body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head> 
+<title>Anomaly Detection</title>
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<meta name="author" content="" />
+<meta http-equiv="content-type" content="text/html;charset=utf-8" />
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<link rel="stylesheet" href="css/blueprint/screen.css" type="text/css" media="screen, projection" />
+<link rel="stylesheet" href="css/blueprint/print.css" type="text/css" media="print" />
+<link rel="stylesheet" href="css/main.css" type="text/css" media="screen" /> 
+<!--[if IE]>
+  <link rel="stylesheet" href="css/blueprint/ie.css" type="text/css" media="screen, projection">
+<![endif]-->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+</script>
+<script type="text/javascript"
+  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+</head>
+<body>
+<div class="container">
+  <h1>Data Mining Portfolio</h1>
+  <p class="author">Dan Baumann</p>
+
+  <h2>Anomaly Detection</h2>
+  <p class="introduction">Anomaly detection techniques are intended to find objects that greatly differ from most others. This task is important not only as a means to improve the results of other algorithms, but also as an end in its own right, as many applications exist such as fraud detection. Some intuitive causes of anomalies are data measurement errors and natural variation, but they can also result from the influence of one or more unperceived mechanisms. Many anomalies defy explanation altogether and therefore warrant careful consideration.</p>
+  
+  <p class="introduction">Although anomalies are most consistently defined by their differences from other objects, they're often also different from one another, and therefore do not have a common description. In other words, anomalies represent the negative space in the portrait of data mining. Some important distinctions that need to be made when discussing anomalies. For instance, an object may have no individually anomalous attribute values while still being an anomaly due to a particular combination of them. Also, not all anomalies are particularly severe (an outlier score can be assigned), nor do they assume the role of anomalies in all contexts.</p>
+
+  <p class="introduction">Like most other data mining techniques, anomaly detection has its own set of implementation issues. A problem known as masking takes place when anomalies are being identified one at a time, with several anomalous objects hiding eachother's presence. Another issue known as swamping results in normal objects being mistaken as anomalies when multiple anomalies are being identified at the same time. Finally, anomaly detection algorithms can be difficult to evaluate for their effectiveness.</p>
+
+  <p class="introduction">Described below are some popular approaches to anomaly detection.</p>
+
+  <h3>Statistical Approaches</h3>
+  <p>Statistical models for outlier detection are based on probability distributions. One or more attributes may be assigned expected probability distributions; if any of the attributes of a given object differ significantly from the mean, the object is considered to be an outlier. This isn't always effective, as non-standard distributions of values are relatively common in data mining. With the insight provided by data exploration, statistical tests can be customized to a particular source of data and be highly effective in identifying anomalies, especially if only a single attribute is being considered. However sometimes a more sophisticated approach is necessary such as mixture modeling, which can be cumbersome for non-experts.</p>
+
+  <h3>Proximity-Based Detection</h3>
+  <p>This strategy is based on considering the distance of the $k$th nearest neighbor, which provides an outlier score indicating whether or not an object is a significant outlier. Like related approaches in classification and clustering, the effectiveness of this technique is highly sensitive to the value of $k$, as well as to local variations in object density. These weaknesses can be mitigated to some extent by instead using the average distance of the k-nearest neighbors to determine the outlier score. For large datasets, the cost of computing the necessary proximity matrix can be prohibitively expensive.</p>
+
+  <h3>Density-Based Detection</h3>
+  <p>This approach defines neighborhood density as the <em>inverse</em> of the average distance of the k-nearest neighbors. The outlier score is then determined as the neighborhood density of the object in question divided by the average neighborhood density of the surrounding objects. The approach has the advantage of being effective even in the presence of density variations. However, like proximity-based detection, this algorithm has a time complexity of $O(m^2)$ for high dimensional data.</p>
+
+  <h3>Clustering-Based Detection</h3>
+  <p>Anomalies are often apparent in scatterplots as the objects that are not part of any local grouping; that is, they do not belong to any cluster to a great extent. Therefore, clustering is a natural approach to identifying outliers. One of the main advantages of this approach is that the clustering algorithm used can be chosen based on the nature of the data. Furthermore, there are several ways to estimate the extent to which an object belongs to a cluster. A common approach is to compute the distance of an object to its nearest cluster (the centroid distance), and then divide the result by the average centroid distance of all the other objects in the cluster. Another way is to base the outlier score on the change in an objective function that results from removing the object in question from the cluster. This method can be a relatively cheap way to identify outliers if a fast clustering algorithm such as k-means is used. Unfortunately k-means does not automatically determine the appropriate number of clusters to look for, which can influence whether or not an object is considered to be an outlier. Clustering-based anomaly detection is highly dependent on the suitability of the data for clustering as well as the individual weaknesses of the chosen clustering algorithm.</p>
+</div>
+</body>
+</html>
